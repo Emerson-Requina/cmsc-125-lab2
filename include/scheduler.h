@@ -34,4 +34,20 @@ void run_stcf(Process *processes, int count);
 void run_rr(Process *processes, int count, int quantum);
 void run_mlfq(Process *processes, int count, MLFQScheduler *sched);
 
+typedef struct {
+    int id;
+    int quantum;
+    int allotment;
+} QueueConfig;
+
+typedef struct {
+    QueueConfig queues[10];
+    int num_queues;
+    int boost_period;
+} MLFQConfig;
+
+// Function prototypes
+MLFQConfig parse_mlfq_config(const char *filename);
+void run_mlfq(Process *processes, int count, MLFQConfig config);
+
 #endif
