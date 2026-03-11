@@ -1,38 +1,37 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude -g
+CFLAGS = -Wall -Wextra -Iinclude -g
 
-SRC_DIR = src 
-OBJ_DIR = obj 
-BIN_DIR = bin
+# Directories
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = .
 
-TARGET = $(BIN_DIR)/myshell
+TARGET = $(BIN_DIR)/schedsim
 
-# Find all C source files recursively
-SRCS = $(shell find $(SRC_DIR) -name "*.c")
+# Explicitly list only the files needed for the scheduler
+# Prevents it from accidentally including Lab 1 shell files
+SRCS = $(SRC_DIR)/main.c \
+       $(SRC_DIR)/process.c \
+       $(SRC_DIR)/fcfs.c \
+       $(SRC_DIR)/sjf.c \
+       $(SRC_DIR)/stcf.c
 
-# Convert .c file paths to .o file paths
+# Convert .c paths to .o paths
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	@mkdir -p $(BIN_DIR)
-	@echo "Linking objects..."
+	@echo "Linking objects into $(TARGET)..."
 	$(CC) $(CFLAGS) -o $@ $^
 
-
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
+	@mkdir -p $(OBJ_DIR)
 	@echo "Compiling $< ..."
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@echo "Cleaning project..."
-	rm -rf $(OBJ_DIR)/*.o $(TARGET)
+	rm -rf $(OBJ_DIR) $(TARGET)
 
-rebuild: clean all
-
-run: $(TARGET)
-	./$(TARGET)
-
-.PHONY: all clean rebuild run
+.PHONY: all clean
