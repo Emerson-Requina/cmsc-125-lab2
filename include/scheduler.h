@@ -20,19 +20,13 @@ typedef struct {
     int size;               // Current queue size
 } MLFQQueue;
 
-typedef struct {
-    MLFQQueue *queues;      // Array of queues
-    int num_queues;         // Number of priority levels
-    int boost_period;       // Period for priority boost (S)
-    int last_boost;         // Last boost time
-} MLFQScheduler;
 
 // Main execution interfaces for algorithms
 void run_fcfs(Process *processes, int count);
 void run_sjf(Process *processes, int count);
 void run_stcf(Process *processes, int count);
 void run_rr(Process *processes, int count, int quantum);
-void run_mlfq(Process *processes, int count, MLFQScheduler *sched);
+// void run_mlfq(Process *processes, int count, MLFQScheduler *sched);
 
 typedef struct {
     int id;

@@ -16,4 +16,7 @@ void calculate_metrics(Process *processes, int count);
 // Print the comparative analysis table
 void display_comparison_table(SchedulingMetrics *results, int num_algos);
 
+
+void print_mlfq_analysis(Process *processes, int count);
+
 #endif
