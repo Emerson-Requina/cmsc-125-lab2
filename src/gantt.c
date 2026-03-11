@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "../include/gantt.h"
 
@@ -9,7 +8,7 @@ typedef struct {
     int end;
 } GanttEvent;
 
-static GanttEvent events[1000]; // Fixed size for simplicity
+static GanttEvent events[1000];
 static int event_count = 0;
 
 void log_execution(const char *pid, int start, int end) {
@@ -21,26 +20,36 @@ void log_execution(const char *pid, int start, int end) {
     }
 }
 
-void print_gantt_chart(int scale) {
-    printf("\n--- Gantt Chart ---\n");
+void print_gantt_chart(int scale_factor) {
+    if (scale_factor <= 0) scale_factor = 10; // Default scaling
     
-    // Top border
-    for (int i = 0; i < event_count; i++) printf("----------");
-    printf("\n|");
+    printf("\n=== Gantt Chart ===\n");
 
-    // PID Row
+    // 1. Print the PID row with relative scaling
     for (int i = 0; i < event_count; i++) {
-        printf("  %s  |", events[i].pid);
+        int duration = events[i].end - events[i].start;
+        int num_dashes = duration / scale_factor;
+        if (num_dashes < 1) num_dashes = 1; // Ensure at least 1 dash for tiny bursts
+
+        printf("[%s", events[i].pid);
+        for (int j = 0; j < num_dashes; j++) {
+            printf("-");
+        }
+        printf("]");
     }
     printf("\n");
 
-    // Bottom border
-    for (int i = 0; i < event_count; i++) printf("----------");
-    printf("\n0");
-
-    // Time Row
+    // 2. Print the Time markers aligned with the edges
+    printf("%-3d", events[0].start);
     for (int i = 0; i < event_count; i++) {
-        printf("%10d", events[i].end);
+        int duration = events[i].end - events[i].start;
+        int num_dashes = duration / scale_factor;
+        if (num_dashes < 1) num_dashes = 1;
+
+        // Total width of bracket is PID length + dashes + 2 brackets
+        // We use %*d to dynamically set the width for alignment
+        int field_width = strlen(events[i].pid) + num_dashes + 1;
+        printf("%*d", field_width, events[i].end);
     }
-    printf("\n\n(Scale: %d units per block)\n", scale);
+    printf("\n");
 }
