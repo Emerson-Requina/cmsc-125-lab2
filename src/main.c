@@ -2,22 +2,27 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../include/scheduler.h"
+#include "../include/metrics.h"
+#include "../include/gantt.h"
 
 int main(int argc, char *argv[]) {
     char *input_file = NULL;
     char *algo_name = "FCFS"; // Default 
+    int quantum = 10;         // Default quantum for RR
 
-    // Parse command line arguments
+    // 1. Improved Argument Parsing
     for (int i = 1; i < argc; i++) {
         if (strncmp(argv[i], "--input=", 8) == 0) {
             input_file = argv[i] + 8;
         } else if (strncmp(argv[i], "--algorithm=", 12) == 0) {
             algo_name = argv[i] + 12;
+        } else if (strncmp(argv[i], "--quantum=", 10) == 0) {
+            quantum = atoi(argv[i] + 10);
         }
     }
 
     if (!input_file) {
-        fprintf(stderr, "Usage: %s --algorithm=<ALGO> --input=<FILE>\n", argv[0]);
+        fprintf(stderr, "Usage: %s --algorithm=<ALGO> --input=<FILE> [--quantum=<INT>]\n", argv[0]);
         return 1;
     }
 
@@ -29,18 +34,23 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    printf("Running %s Scheduler...\n", algo_name);
+    printf("Running %s Scheduler (Quantum: %d)...\n", algo_name, quantum);
 
-    // Dispatcher logic
+    // 2. Updated Dispatcher Logic
     if (strcmp(algo_name, "FCFS") == 0) {
         run_fcfs(processes, process_count);
+    } else if (strcmp(algo_name, "RR") == 0) {
+        run_rr(processes, process_count, quantum);
     } else {
         printf("Algorithm %s not yet implemented.\n", algo_name);
+        free(processes);
+        return 1;
     }
 
-    // After simulation, calculate and display results
-    // calculate_metrics(processes, process_count);
-    // print_gantt_chart(10);
+    // 3. Post-Simulation Reporting
+    // These functions now have data to work with because run_rr calls log_execution
+    calculate_metrics(processes, process_count);
+    print_gantt_chart(quantum);
 
     free(processes);
     return 0;
