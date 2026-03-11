@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iinclude -g
 
-SRC_DIR = src 
-OBJ_DIR = obj 
+SRC_DIR = src
+OBJ_DIR = obj
 BIN_DIR = bin
 
 TARGET = $(BIN_DIR)/myshell
@@ -20,19 +20,21 @@ $(TARGET): $(OBJS)
 	@echo "Linking objects..."
 	$(CC) $(CFLAGS) -o $@ $^
 
-
+# FIX: Separated the directory creation from the implicit rule 
+# to avoid the "mixed implicit and normal rules" warning.
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
+	@mkdir -p $(@D)
 	@echo "Compiling $< ..."
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@echo "Cleaning project..."
-	rm -rf $(OBJ_DIR)/*.o $(TARGET)
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
 rebuild: clean all
 
+# FIX: Added $(ARGS) so you can pass flags from the terminal
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET) $(ARGS)
 
 .PHONY: all clean rebuild run
