@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     char *algo_name = "FCFS"; // Default 
     int quantum = 10;         // Default quantum for RR
 
-    // 1. Improved Argument Parsing
+    // 1. Argument Parsing
     for (int i = 1; i < argc; i++) {
         if (strncmp(argv[i], "--input=", 8) == 0) {
             input_file = argv[i] + 8;
@@ -34,13 +34,18 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    printf("Running %s Scheduler (Quantum: %d)...\n", algo_name, quantum);
+    printf("Running %s Scheduler...\n", algo_name);
 
-    // 2. Updated Dispatcher Logic
+    // 2. Expanded Dispatcher Logic
     if (strcmp(algo_name, "FCFS") == 0) {
         run_fcfs(processes, process_count);
     } else if (strcmp(algo_name, "RR") == 0) {
+        printf("Using Quantum: %d\n", quantum);
         run_rr(processes, process_count, quantum);
+    } else if (strcmp(algo_name, "SJF") == 0) {
+        run_sjf(processes, process_count);
+    } else if (strcmp(algo_name, "STCF") == 0) {
+        run_stcf(processes, process_count);
     } else {
         printf("Algorithm %s not yet implemented.\n", algo_name);
         free(processes);
@@ -48,9 +53,8 @@ int main(int argc, char *argv[]) {
     }
 
     // 3. Post-Simulation Reporting
-    // These functions now have data to work with because run_rr calls log_execution
     calculate_metrics(processes, process_count);
-    print_gantt_chart(quantum);
+    print_gantt_chart(10); // You can adjust the scale as needed
 
     free(processes);
     return 0;
