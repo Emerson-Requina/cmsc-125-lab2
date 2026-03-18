@@ -9,9 +9,12 @@ typedef struct {
     int start_time;         // When first executed (for RT)
     int finish_time;        // When completed (for TT)
     int waiting_time;       // Time spent waiting
-    int priority;           // For MLFQ
-    int time_in_queue;      // For MLFQ allotment tracking
-    int responded;          // Boolean flag to check if process has started yet
+    int responded;  
+    // --- MLFQ Tracking Fields ---
+    int priority;                 // Current level
+    int time_in_queue;            // Current allotment tracker
+    int lowest_priority_attained; // The max value 'priority' ever reached
+    int demotion_time;        // Boolean flag to check if process has started yet
 } Process;
 
 // Load processes from a file (e.g., workload.txt)

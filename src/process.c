@@ -28,9 +28,11 @@ Process* load_processes(const char *filename, int *count) {
             p.finish_time = 0;
             p.waiting_time = 0;
             p.responded = 0;
+            // Initialize MLFQ Specifics
             p.priority = 0;
             p.time_in_queue = 0;
-
+            p.lowest_priority_attained = 0;
+            p.demotion_time = -1; // -1 indicates it never left Q0
             if (*count >= capacity) {
                 capacity *= 2;
                 processes = realloc(processes, sizeof(Process) * capacity);
