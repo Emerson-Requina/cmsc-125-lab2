@@ -1,5 +1,6 @@
 # PID  ArrivalTime  BurstTime
-P1     0            300
-P2     10           30
-P3     20           80
-P4     45           20
+P1     0            240
+P2     10           180
+P3     20           150
+P4     25           80
+P5     30           130

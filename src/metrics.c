@@ -2,10 +2,6 @@
 #include "../include/metrics.h"
 #include "../include/scheduler.h"
 
-/**
- * Standard metrics table for all algorithms.
- * Calculates Turnaround Time (TT), Waiting Time (WT), and Response Time (RT).
- */
 void calculate_metrics(Process *processes, int count) {
     double total_tt = 0, total_wt = 0, total_rt = 0;
 
@@ -29,42 +25,34 @@ void calculate_metrics(Process *processes, int count) {
     }
 
     printf("--------|-----|-----|-----|-----|-----|-----\n");
-    printf("%-8s |     |     |     | %3.1f | %3.1f | %3.1f\n", 
+    printf("%-8s |     |     |     | %3.0f | %3.0f | %3.0f\n", 
            "Average", total_tt / count, total_wt / count, total_rt / count);
 }
 
-/**
- * Specialized Analysis for MLFQ.
- * Explains process behavior based on the final queue reached.
- */
 void print_mlfq_analysis(Process *processes, int count) {
     double total_rt = 0;
-    
     printf("\n=== Analysis ===\n");
     
-    // 1. Interactive Job Behavior (High Priority Success)
     printf("Interactive job (short burst) behavior:\n");
     for (int i = 0; i < count; i++) {
         int tt = processes[i].finish_time - processes[i].arrival_time;
-        total_rt += (processes[i].start_time - processes[i].arrival_time);
+        int rt = processes[i].start_time - processes[i].arrival_time;
+        total_rt += rt;
 
-        if (processes[i].priority == 0) {
-            printf("  - Process %s stayed in Q0 (completed in %d time units)\n", 
-                   processes[i].pid, tt);
-        } else if (processes[i].priority == 1) {
-            printf("  - Process %s was handled in Q1 (completed in %d time units)\n", 
+        // Interactive jobs usually finish within a couple of boost cycles or allotments
+        if (processes[i].burst_time <= 100) {
+            printf("  - Process %s stayed in higher queues (completed in %d time units)\n", 
                    processes[i].pid, tt);
         }
     }
     printf("  - Average response time: %.1f\n", total_rt / count);
 
-    // 2. Long-running Job Behavior (Demotion tracking)
     printf("\nLong-running job behavior:\n");
     for (int i = 0; i < count; i++) {
-        if (processes[i].priority >= 2) {
+        if (processes[i].burst_time > 100) {
             int tt = processes[i].finish_time - processes[i].arrival_time;
-            printf("  - Process %s demoted to Q%d (identified as compute-intensive) - Turnaround: %d\n", 
-                   processes[i].pid, processes[i].priority, tt);
+            printf("  - Process %s demoted to lower levels (Turnaround: %d)\n", 
+                   processes[i].pid, tt);
         }
     }
 

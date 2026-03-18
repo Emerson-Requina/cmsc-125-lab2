@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../include/scheduler.h"
-#include "../include/gantt.h"
 
 void run_mlfq(Process *processes, int count, MLFQConfig config) {
     int current_time = 0;
     int completed = 0;
-    // int last_boost_time = 0;
     
     int current_priority[count];
     int allotment_left[count];
@@ -17,17 +15,13 @@ void run_mlfq(Process *processes, int count, MLFQConfig config) {
         current_priority[i] = 0;
         allotment_left[i] = config.queues[0].allotment;
         finished[i] = 0;
-    }
-
-    // Initial arrival check for t=0
-    for (int i = 0; i < count; i++) {
-        if (processes[i].arrival_time == 0) {
-            printf("t=0:   Process %s enters Q0\n", processes[i].pid);
-        }
+        processes[i].responded = 0;
+        // Initialize demotion times to 0
+        for(int j = 0; j < 10; j++) processes[i].demotion_times[j] = 0;
     }
 
     while (completed < count) {
-        // 1. Priority Boost Check
+        // 1. Priority Boost
         if (current_time > 0 && current_time % config.boost_period == 0) {
             printf("t=%d:   Priority boost: all processes -> Q0\n", current_time);
             for (int i = 0; i < count; i++) {
@@ -38,14 +32,12 @@ void run_mlfq(Process *processes, int count, MLFQConfig config) {
             }
         }
 
-        // 2. Select highest priority process available
+        // 2. Select Process
         int idx = -1;
-        int target_q = -1;
         for (int q = 0; q < config.num_queues; q++) {
             for (int i = 0; i < count; i++) {
                 if (!finished[i] && processes[i].arrival_time <= current_time && current_priority[i] == q) {
                     idx = i;
-                    target_q = q;
                     break;
                 }
             }
@@ -58,31 +50,34 @@ void run_mlfq(Process *processes, int count, MLFQConfig config) {
                 processes[idx].responded = 1;
             }
 
-            int q_val = config.queues[target_q].quantum;
-            // If Q is FCFS (-1), run until completion or next arrival/boost
+            int q_val = config.queues[current_priority[idx]].quantum;
             int max_run = (q_val == -1) ? processes[idx].remaining_time : q_val;
 
-            // Execute the process step-by-step for accurate tracing
             for (int i = 0; i < max_run; i++) {
-                current_time++;
-                processes[idx].remaining_time--;
-                
-                // Track NEW arrivals during this execution step
+                // Check arrival at start of unit
                 for (int j = 0; j < count; j++) {
-                    if (processes[j].arrival_time == current_time) {
-                        printf("t=%d:   Process %s enters Q0\n", current_time, processes[j].pid);
+                    if (processes[j].arrival_time == current_time && current_time != 0) {
+                         // Note: t=0 handled in main or initial loop usually
+                         printf("t=%d:   Process %s enters Q0\n", current_time, processes[j].pid);
                     }
                 }
 
-                // Check for demotion (if not the bottom queue)
+                current_time++;
+                processes[idx].remaining_time--;
+
+                // 3. Demotion Logic
                 if (q_val != -1) {
                     allotment_left[idx]--;
                     if (allotment_left[idx] <= 0 && current_priority[idx] < config.num_queues - 1) {
                         current_priority[idx]++;
+                        
+                        // RECORD DEMOTION TIME
+                        processes[idx].demotion_times[current_priority[idx]] = current_time;
+                        
                         allotment_left[idx] = config.queues[current_priority[idx]].allotment;
                         printf("t=%d:   Process %s -> Q%d (exhausted Q%d allotment)\n", 
-                                current_time, processes[idx].pid, current_priority[idx], current_priority[idx] - 1);
-                        break; // Stop current burst to re-schedule
+                               current_time, processes[idx].pid, current_priority[idx], current_priority[idx]-1);
+                        break; 
                     }
                 }
 
@@ -94,6 +89,7 @@ void run_mlfq(Process *processes, int count, MLFQConfig config) {
                     printf("t=%d:   Process %s completes in Q%d\n", current_time, processes[idx].pid, current_priority[idx]);
                     break;
                 }
+                if (current_time % config.boost_period == 0) break;
             }
         } else {
             current_time++;

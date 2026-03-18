@@ -11,7 +11,8 @@ typedef struct {
     int waiting_time;       // Time spent waiting
     int priority;           // For MLFQ
     int time_in_queue;      // For MLFQ allotment tracking
-    int responded;          // Boolean flag to check if process has started yet
+    int responded;
+    int demotion_times[10];          // Boolean flag to check if process has started yet
 } Process;
 
 // Load processes from a file (e.g., workload.txt)
