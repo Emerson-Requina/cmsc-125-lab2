@@ -5,7 +5,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = bin
 
-TARGET = $(BIN_DIR)/schedsim
+TARGET = schedsim
 
 # Find all C source files recursively
 SRCS = $(shell find $(SRC_DIR) -name "*.c")
