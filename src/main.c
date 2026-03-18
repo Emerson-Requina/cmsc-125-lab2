@@ -5,23 +5,25 @@
 #include "../include/metrics.h"
 #include "../include/gantt.h"
 #include "../include/logger.h"
-#include "../include/mlfq.h" // Added for MLFQ structures
+#include "../include/mlfq.h"
+#include "../include/comparison.h" // Added for benchmarking
 
 // External declarations for the "Picker" functions
 extern Process* pick_fcfs(Process *procs, int count, int time, Process *current);
 extern Process* pick_sjf(Process *procs, int count, int time, Process *current);
 extern Process* pick_stcf(Process *procs, int count, int time, Process *current);
 extern Process* pick_rr(Process *procs, int count, int time, Process *current);
-extern Process* pick_mlfq(Process *procs, int count, int time, Process *current); // Added MLFQ
+extern Process* pick_mlfq(Process *procs, int count, int time, Process *current);
 
 extern void set_rr_quantum(int q);
-extern void set_mlfq_config(MLFQConfig *cfg); // New setter for MLFQ module
+extern void set_mlfq_config(MLFQConfig *cfg);
 
 int main(int argc, char *argv[]) {
     char *input_file = NULL;
     char *mlfq_file = "config/mlfq.conf"; // Default path
     char *algo_name = "FCFS"; 
-    int quantum = 10;         
+    int quantum = 10;
+    int compare_mode = 0; // Toggle for comparison logic
 
     // 1. Argument Parsing
     for (int i = 1; i < argc; i++) {
@@ -33,14 +35,17 @@ int main(int argc, char *argv[]) {
             quantum = atoi(argv[i] + 10);
         } else if (strncmp(argv[i], "--mlfq-config=", 14) == 0) {
             mlfq_file = argv[i] + 14;
+        } else if (strcmp(argv[i], "--compare") == 0) {
+            compare_mode = 1;
         }
     }
 
     if (!input_file) {
-        fprintf(stderr, "Usage: %s --algorithm=<ALGO> --input=<FILE> [--quantum=<INT>] [--mlfq-config=<FILE>]\n", argv[0]);
+        fprintf(stderr, "Usage: %s --input=<FILE> [--algorithm=<ALGO>] [--quantum=<INT>] [--mlfq-config=<FILE>] [--compare]\n", argv[0]);
         return 1;
     }
 
+    // Load initial processes
     int process_count = 0;
     Process *processes = load_processes(input_file, &process_count);
 
@@ -49,11 +54,19 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    // --- BRANCH: COMPARATIVE ANALYSIS MODE ---
+    if (compare_mode) {
+        // This will run all algorithms one by one and show a table
+        run_comparative_analysis(processes, process_count, mlfq_file);
+        free(processes);
+        return 0;
+    }
+
+    // --- BRANCH: SINGLE ALGORITHM MODE ---
     AlgorithmPicker picker = NULL;
     int is_preemptive = 0;
     MLFQConfig *mlfq_cfg = NULL;
 
-    // 2. Expanded Dispatcher Logic
     if (strcmp(algo_name, "FCFS") == 0) {
         picker = pick_fcfs;
         is_preemptive = 0;
@@ -68,15 +81,14 @@ int main(int argc, char *argv[]) {
         picker = pick_rr;
         is_preemptive = 1;
     } else if (strcmp(algo_name, "MLFQ") == 0) {
-        // Load the MLFQ rules from the .conf file
         mlfq_cfg = load_mlfq_config(mlfq_file);
         if (!mlfq_cfg) {
             free(processes);
             return 1;
         }
-        set_mlfq_config(mlfq_cfg); // Pass config to the mlfq.c module
+        set_mlfq_config(mlfq_cfg);
         picker = pick_mlfq;
-        is_preemptive = 1; // MLFQ must be preemptive to handle quantums/boosts
+        is_preemptive = 1; 
     } else {
         fprintf(stderr, "Algorithm %s not recognized.\n", algo_name);
         free(processes);
@@ -85,19 +97,18 @@ int main(int argc, char *argv[]) {
 
     printf("Starting %s Simulation...\n", algo_name);
     
-    // 3. The Engine
-run_simulation(processes, process_count, picker, is_preemptive);
+    // Run Engine
+    run_simulation(processes, process_count, picker, is_preemptive);
 
-// 4. Post-Simulation Reporting
-calculate_metrics(processes, process_count);
-print_gantt_chart(1); // Micro-gantt call
+    // Reporting
+    calculate_metrics(processes, process_count);
+    print_gantt_chart(1); 
 
-// New: Analysis trigger
-if (strcmp(algo_name, "MLFQ") == 0) {
-    print_mlfq_behavior_report(processes, process_count, mlfq_cfg);
-}
+    if (strcmp(algo_name, "MLFQ") == 0) {
+        print_mlfq_behavior_report(processes, process_count, mlfq_cfg);
+    }
 
-    // 5. Cleanup
+    // Cleanup
     if (mlfq_cfg) free(mlfq_cfg);
     free(processes);
     
