@@ -4,6 +4,14 @@
 #include "../include/scheduler.h"
 #include "../include/metrics.h"
 #include "../include/gantt.h"
+#include "../include/logger.h"
+
+// External declarations for the "Picker" functions which only decide who runs next.
+extern Process* pick_fcfs(Process *procs, int count, int time, Process *current);
+extern Process* pick_sjf(Process *procs, int count, int time, Process *current);
+extern Process* pick_stcf(Process *procs, int count, int time, Process *current);
+extern Process* pick_rr(Process *procs, int count, int time, Process *current);
+extern void set_rr_quantum(int q); // New setter to preserve --quantum flag
 
 int main(int argc, char *argv[]) {
     char *input_file = NULL;
@@ -34,25 +42,34 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    printf("Running %s Scheduler...\n", algo_name);
+    AlgorithmPicker picker = NULL;
+    int is_preemptive = 0;
 
     // 2. Expanded Dispatcher Logic
     if (strcmp(algo_name, "FCFS") == 0) {
-        run_fcfs(processes, process_count);
-    } else if (strcmp(algo_name, "RR") == 0) {
-        printf("Using Quantum: %d\n", quantum);
-        run_rr(processes, process_count, quantum);
+        picker = pick_fcfs;
+        is_preemptive = 0; // Run until finished
     } else if (strcmp(algo_name, "SJF") == 0) {
-        run_sjf(processes, process_count);
+        picker = pick_sjf;
+        is_preemptive = 0; // Run until finished
     } else if (strcmp(algo_name, "STCF") == 0) {
-        run_stcf(processes, process_count);
+        picker = pick_stcf;
+        is_preemptive = 1; // Check for shorter jobs every tick
+    } else if (strcmp(algo_name, "RR") == 0) {
+        set_rr_quantum(quantum); // Pass your parsed quantum to the RR module
+        picker = pick_rr;
+        is_preemptive = 1; // Check quantum every tick
     } else {
-        printf("Algorithm %s not yet implemented.\n", algo_name);
+        fprintf(stderr, "Algorithm %s not recognized.\n", algo_name);
         free(processes);
         return 1;
     }
 
-    // 3. Post-Simulation Reporting
+    printf("Starting %s Simulation...\n", algo_name);
+    // 3. The Engine: This handles the "Run Time" and "Clock"
+    run_simulation(processes, process_count, picker, is_preemptive);
+    
+    // 4. Post-Simulation Reporting
     calculate_metrics(processes, process_count);
     print_gantt_chart(10); // You can adjust the scale as needed
 

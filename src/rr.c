@@ -1,73 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "../include/scheduler.h"
-#include "../include/gantt.h"
+#include "../include/process.h"
 
-void run_rr(Process *processes, int count, int quantum) {
-    int current_time = 0;
-    int completed = 0;
-    int *ready_queue = malloc(sizeof(int) * count);
-    int head = 0, tail = 0;
-    int in_queue[count]; // Track if process is already in the ready queue
+#define MAX_PROCESSES 100
+static Process* ready_queue[MAX_PROCESSES];
+static int head = 0, tail = 0;
+static int time_slice_counter = 0;
+static int quantum = 4; // This could also be a setting from main.c
 
-    for (int i = 0; i < count; i++) in_queue[i] = 0;
+void set_rr_quantum(int q) {
+    quantum = q;
+}
 
-    printf("Starting Round Robin Simulation (Quantum: %d)...\n", quantum);
-
-    // Continue until all processes are finished
-    while (completed < count) {
-        // 1. Add arriving processes to the ready queue
-        for (int i = 0; i < count; i++) {
-            if (processes[i].arrival_time <= current_time && processes[i].remaining_time > 0 && !in_queue[i]) {
-                ready_queue[tail++] = i;
-                in_queue[i] = 1;
-            }
-        }
-
-        if (head == tail) { // Queue is empty, CPU is idle
-            current_time++;
-            continue;
-        }
-
-        // 2. Pick the next process from the head
-        int idx = ready_queue[head++];
-        Process *p = &processes[idx];
-
-        // Mark start time/response time if it's the first execution
-        if (!p->responded) {
-            p->start_time = current_time;
-            p->responded = 1;
-        }
-
-        // 3. Determine execution time (min of remaining time or quantum)
-        int run_time = (p->remaining_time < quantum) ? p->remaining_time : quantum;
-        
-        log_execution(p->pid, current_time, current_time + run_time);
-        
-        p->remaining_time -= run_time;
-        int prev_time = current_time;
-        current_time += run_time;
-
-        // 4. Check for new arrivals DURING the time slice 
-        // (Important: newcomers get priority over the demoted process in standard RR)
-        for (int i = 0; i < count; i++) {
-            if (processes[i].arrival_time > prev_time && processes[i].arrival_time <= current_time && !in_queue[i]) {
-                ready_queue[tail++] = i;
-                in_queue[i] = 1;
-            }
-        }
-
-        // 5. Handle process completion or re-queueing
-        if (p->remaining_time == 0) {
-            p->finish_time = current_time;
-            completed++;
-        } else {
-            // Still has work? Put it back at the end of the queue
-            ready_queue[tail++] = idx;
+Process* pick_rr(Process *procs, int count, int time, Process *current) {
+    // 1. Check for New Arrivals: Add anyone who just arrived at this 'time'
+    for (int i = 0; i < count; i++) {
+        if (procs[i].arrival_time == time) {
+            ready_queue[tail++] = &procs[i];
         }
     }
 
-    free(ready_queue);
-    printf("Round Robin Simulation Complete.\n");
+    // 2. Quantum Logic: If a process is running, check its timer
+    if (current != NULL) {
+        time_slice_counter++;
+
+        // If it finished its work, reset timer
+        if (current->remaining_time <= 0) {
+            time_slice_counter = 0;
+        } 
+        // If it used its quantum but still has work, move to back of queue
+        else if (time_slice_counter >= quantum) {
+            ready_queue[tail++] = current;
+            time_slice_counter = 0;
+            current = NULL; // Force a switch
+        }
+    }
+
+    // 3. Return the next in line
+    if (current == NULL || time_slice_counter == 0) {
+        if (head < tail) {
+            return ready_queue[head++];
+        }
+    }
+
+    return current;
 }

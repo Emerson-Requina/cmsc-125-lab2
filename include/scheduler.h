@@ -27,11 +27,16 @@ typedef struct {
     int last_boost;         // Last boost time
 } MLFQScheduler;
 
+
 // Main execution interfaces for algorithms
 void run_fcfs(Process *processes, int count);
 void run_sjf(Process *processes, int count);
 void run_stcf(Process *processes, int count);
 void run_rr(Process *processes, int count, int quantum);
 void run_mlfq(Process *processes, int count, MLFQScheduler *sched);
+
+typedef Process* (*AlgorithmPicker)(Process *procs, int count, int current_time, Process *current);
+
+void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_preemptive);
 
 #endif
