@@ -78,9 +78,12 @@ void print_mlfq_behavior_report(Process *procs, int count, MLFQConfig *cfg) {
 
     printf("\nLong-running job behavior:\n");
     for (int i = 0; i < count; i++) {
-        if (procs[i].lowest_priority_attained == cfg->level_count - 1) {
+        // CHANGE: Check if it was ever demoted at least once (priority > 0)
+        if (procs[i].lowest_priority_attained > 0) { 
             printf("  - Process %s demoted to Q%d after %d time units\n", 
-                   procs[i].pid, procs[i].lowest_priority_attained, procs[i].demotion_time);
+                   procs[i].pid, 
+                   procs[i].lowest_priority_attained, 
+                   procs[i].demotion_time);
             printf("  - Turnaround time: %d (fair for its burst time)\n", 
                    procs[i].finish_time - procs[i].arrival_time);
         }
