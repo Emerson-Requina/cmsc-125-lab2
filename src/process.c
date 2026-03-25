@@ -45,14 +45,8 @@ Process* load_processes(const char *filename, int *count) {
     return processes;
 }
 
-void free_processes(Process *procs, int count) {
+void free_processes(Process *procs) {
     if (!procs) return;
-
-    // If your Process struct has heap-allocated fields, free them here
-    // Example: if you had 'char *name', you would do:
-    // for (int i = 0; i < count; i++) {
-    //     if (procs[i].name) free(procs[i].name);
-    // }
 
     free(procs);
 }

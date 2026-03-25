@@ -19,5 +19,6 @@ typedef struct {
 
 // Load processes from a file (e.g., workload.txt)
 Process* load_processes(const char *filename, int *count);
+void free_processes(Process *procs);
 
 #endif

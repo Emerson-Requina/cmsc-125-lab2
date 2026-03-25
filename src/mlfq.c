@@ -4,13 +4,13 @@
 #include "scheduler.h"
 
 void free_mlfq_config(MLFQConfig *cfg) {
-    if (!cfg) return;
-
-    // If the 'levels' array inside the struct was allocated separately:
-    if (cfg->levels) {
-        free(cfg->levels);
+    if (cfg == NULL) {
+        return;
     }
 
+    // DO NOT free(cfg->levels). It is a static array.
+    // It will be cleaned up automatically when we free 'cfg'.
+    
     free(cfg);
 }
 

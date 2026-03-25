@@ -93,6 +93,6 @@ void run_comparative_analysis(Process *original_procs, int count, const char *ml
     }
     
     if (temp_procs) {
-        free_processes(temp_procs, count);
+        free_processes(temp_procs);
     }
 }

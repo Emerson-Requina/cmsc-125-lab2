@@ -151,12 +151,12 @@ cleanup:
     
     // Deep free the original process list
     if (base_processes) {
-        free_processes(base_processes, process_count);
+        free_processes(base_processes);
     }
 
     // Deep free the mutated process list used in the simulation
     if (work_processes) {
-        free_processes(work_processes, process_count);
+        free_processes(work_processes);
     }
 
     // Deep free the MLFQ configuration
