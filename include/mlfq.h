@@ -18,6 +18,5 @@ typedef struct MLFQConfig {
 
 MLFQConfig* load_mlfq_config(const char *filename);
 void set_mlfq_config(MLFQConfig *cfg);
-Process* pick_mlfq(Process *procs, int count, int time, Process *current);
 
 #endif

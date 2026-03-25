@@ -2,7 +2,8 @@
 #include <limits.h>
 #include "scheduler.h"
 
-Process* pick_sjf(Process *procs, int count, int time, Process *current) {
+Process* pick_sjf(Process *procs, int count, int time, Process *current, SchedulerConfig *config) {
+    (void)config;
     // 1. Non-preemptive Check: If someone is already on the CPU, 
     // they stay until they are done (remaining_time == 0).
     if (current != NULL && current->remaining_time > 0) {

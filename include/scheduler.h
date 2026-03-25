@@ -52,6 +52,6 @@ Process* pick_stcf(Process *procs, int count, int time, Process *current, Schedu
 Process* pick_rr(Process *procs, int count, int time, Process *current, SchedulerConfig *config);
 Process* pick_mlfq(Process *procs, int count, int time, Process *current, SchedulerConfig *config);
 
-void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_preemptive);
+void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_preemptive, SchedulerConfig *config);
 
 #endif
