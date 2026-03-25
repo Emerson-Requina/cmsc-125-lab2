@@ -5,11 +5,6 @@
 #include "../include/scheduler.h"
 #include "../include/mlfq.h"
 
-/**
- * reset_procs - Restores process states for a fresh simulation run.
- * We include any specific fields like demotion_time or priority to ensure
- * MLFQ and RR runs don't inherit data from previous algorithm runs.
- */
 void reset_procs(Process *dest, Process *src, int count) {
     for (int i = 0; i < count; i++) {
         dest[i] = src[i]; 
