@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/gantt.h"
+#include "gantt.h"
 
 #define FIXED_WIDTH 6
 #define MAX_BLOCKS_PER_LINE 10  // Adjust this based on your terminal width

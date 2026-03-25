@@ -1,27 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/scheduler.h"
-#include "../include/metrics.h"
-#include "../include/gantt.h"
-#include "../include/logger.h"
-#include "../include/mlfq.h" // Added for MLFQ structures
+#include "scheduler.h"
+#include "metrics.h"
+#include "gantt.h"
+#include "logger.h"
+#include "mlfq.h"
 
-// External declarations for the "Picker" functions
-extern Process* pick_fcfs(Process *procs, int count, int time, Process *current);
-extern Process* pick_sjf(Process *procs, int count, int time, Process *current);
-extern Process* pick_stcf(Process *procs, int count, int time, Process *current);
-extern Process* pick_rr(Process *procs, int count, int time, Process *current);
-extern Process* pick_mlfq(Process *procs, int count, int time, Process *current); // Added MLFQ
+int validate_mlfq_config(MLFQConfig *cfg) {
+    if (!cfg) return 0;
+    
+    if (cfg->level_count <= 0) {
+        fprintf(stderr, "Error: MLFQ config must have at least one queue level.\n");
+        return 0;
+    }
+    
+    if (cfg->boost_period <= 0) {
+        fprintf(stderr, "Error: BOOST_PERIOD must be a positive integer.\n");
+        return 0;
+    }
 
-extern void set_rr_quantum(int q);
-extern void set_mlfq_config(MLFQConfig *cfg); // New setter for MLFQ module
+    for (int i = 0; i < cfg->level_count; i++) {
+        // Allotment consistency: Quantum must be <= Allotment (except for bottom queue)
+        if (cfg->levels[i].allotment != -1 && cfg->levels[i].quantum > cfg->levels[i].allotment) {
+            fprintf(stderr, "Error: Q%d quantum (%d) cannot be larger than its allotment (%d).\n", 
+                    i, cfg->levels[i].quantum, cfg->levels[i].allotment);
+            return 0;
+        }
+    }
+    return 1;
+}
 
 int main(int argc, char *argv[]) {
     char *input_file = NULL;
     char *mlfq_file = "config/mlfq.conf"; // Default path
     char *algo_name = "FCFS"; 
-    int quantum = 10;         
+    int quantum_arg = 10;   // renamed to avoid conflict with RR's internal variable
 
     // 1. Argument Parsing
     for (int i = 1; i < argc; i++) {
@@ -30,7 +44,7 @@ int main(int argc, char *argv[]) {
         } else if (strncmp(argv[i], "--algorithm=", 12) == 0) {
             algo_name = argv[i] + 12;
         } else if (strncmp(argv[i], "--quantum=", 10) == 0) {
-            quantum = atoi(argv[i] + 10);
+            quantum_arg = atoi(argv[i] + 10);
         } else if (strncmp(argv[i], "--mlfq-config=", 14) == 0) {
             mlfq_file = argv[i] + 14;
         }
@@ -49,9 +63,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    SchedulerConfig config = {0};
     AlgorithmPicker picker = NULL;
     int is_preemptive = 0;
-    MLFQConfig *mlfq_cfg = NULL;
 
     // 2. Expanded Dispatcher Logic
     if (strcmp(algo_name, "FCFS") == 0) {
@@ -64,17 +78,20 @@ int main(int argc, char *argv[]) {
         picker = pick_stcf;
         is_preemptive = 1;
     } else if (strcmp(algo_name, "RR") == 0) {
-        set_rr_quantum(quantum);
+        config.quantum = quantum_arg;
         picker = pick_rr;
         is_preemptive = 1;
     } else if (strcmp(algo_name, "MLFQ") == 0) {
-        // Load the MLFQ rules from the .conf file
-        mlfq_cfg = load_mlfq_config(mlfq_file);
-        if (!mlfq_cfg) {
+        // Assign to the config pointer directly
+        config.mlfq_cfg = load_mlfq_config(mlfq_file);
+
+        if (!config.mlfq_cfg) {
             free(processes);
             return 1;
         }
-        set_mlfq_config(mlfq_cfg); // Pass config to the mlfq.c module
+        if (!validate_mlfq_config(config.mlfq_cfg)) {
+            exit(EXIT_FAILURE);
+        }
         picker = pick_mlfq;
         is_preemptive = 1; // MLFQ must be preemptive to handle quantums/boosts
     } else {
@@ -86,19 +103,19 @@ int main(int argc, char *argv[]) {
     printf("Starting %s Simulation...\n", algo_name);
     
     // 3. The Engine
-run_simulation(processes, process_count, picker, is_preemptive);
+    run_simulation(processes, process_count, picker, is_preemptive);
 
-// 4. Post-Simulation Reporting
-calculate_metrics(processes, process_count);
-print_gantt_chart(1); // Micro-gantt call
+    // 4. Post-Simulation Reporting
+    calculate_metrics(processes, process_count);
+    print_gantt_chart(1); // Micro-gantt call
 
-// New: Analysis trigger
-if (strcmp(algo_name, "MLFQ") == 0) {
-    print_mlfq_behavior_report(processes, process_count, mlfq_cfg);
-}
+    // Analysis trigger
+    if (strcmp(algo_name, "MLFQ") == 0) {
+        print_mlfq_behavior_report(processes, process_count, config.mlfq_cfg);
+    }
 
     // 5. Cleanup
-    if (mlfq_cfg) free(mlfq_cfg);
+    if (config.mlfq_cfg) free(config.mlfq_cfg);
     free(processes);
     
     return 0;

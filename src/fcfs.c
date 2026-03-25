@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/scheduler.h"
+#include "scheduler.h"
 
 Process* pick_fcfs(Process *procs, int count, int time, Process *current) {
     // Silence the 'unused parameter' error

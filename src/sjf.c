@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <limits.h>
-#include "../include/scheduler.h"
+#include "scheduler.h"
 
 Process* pick_sjf(Process *procs, int count, int time, Process *current) {
     // 1. Non-preemptive Check: If someone is already on the CPU, 

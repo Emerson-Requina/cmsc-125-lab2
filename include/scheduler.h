@@ -2,6 +2,7 @@
 #define SCHEDULER_H
 
 #include "process.h"
+#include "mlfq.h" // Needed for the MLFQConfig type
 
 // Define scheduling algorithm types
 typedef enum {
@@ -35,7 +36,21 @@ void run_stcf(Process *processes, int count);
 void run_rr(Process *processes, int count, int quantum);
 void run_mlfq(Process *processes, int count, MLFQScheduler *sched);
 
-typedef Process* (*AlgorithmPicker)(Process *procs, int count, int current_time, Process *current);
+// Config struct to pass parameters without globals
+typedef struct {
+    int quantum;            // For RR
+    MLFQConfig *mlfq_cfg;   // For MLFQ 
+} SchedulerConfig;
+
+// typedef Process* (*AlgorithmPicker)(Process *procs, int count, int current_time, Process *current);
+typedef Process* (*AlgorithmPicker)(Process *procs, int count, int time, Process *current, SchedulerConfig *config);
+
+// The list of pick prototypes
+Process* pick_fcfs(Process *procs, int count, int time, Process *current, SchedulerConfig *config);
+Process* pick_sjf(Process *procs, int count, int time, Process *current, SchedulerConfig *config);
+Process* pick_stcf(Process *procs, int count, int time, Process *current, SchedulerConfig *config);
+Process* pick_rr(Process *procs, int count, int time, Process *current, SchedulerConfig *config);
+Process* pick_mlfq(Process *procs, int count, int time, Process *current, SchedulerConfig *config);
 
 void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_preemptive);
 

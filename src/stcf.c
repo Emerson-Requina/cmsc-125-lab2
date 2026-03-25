@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <limits.h>
-#include "../include/scheduler.h"
+#include "scheduler.h"
 
 Process* pick_stcf(Process *procs, int count, int time, Process *current) {
     // Silence the 'unused parameter' error
