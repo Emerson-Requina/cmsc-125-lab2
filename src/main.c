@@ -22,7 +22,7 @@ Process* clone_processes(Process* original, int count) {
     if (!copy) return NULL;
     memcpy(copy, original, sizeof(Process) * count);
     
-    // NOTE: If Process had heap-allocated strings, you would 
+    // NOTE: If Process had heap-allocated strings, we
     // need to strdup() them here for a true deep copy.
     return copy;
 }
