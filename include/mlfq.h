@@ -18,5 +18,5 @@ typedef struct MLFQConfig {
 
 MLFQConfig* load_mlfq_config(const char *filename);
 void set_mlfq_config(MLFQConfig *cfg);
-
+void free_mlfq_config(MLFQConfig *cfg);
 #endif

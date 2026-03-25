@@ -44,3 +44,9 @@ Process* load_processes(const char *filename, int *count) {
     fclose(file);
     return processes;
 }
+
+void free_processes(Process *procs) {
+    if (!procs) return;
+
+    free(procs);
+}

@@ -5,6 +5,11 @@
 #include "../include/scheduler.h"
 #include "../include/mlfq.h"
 
+/**
+ * reset_procs - Restores process states for a fresh simulation run.
+ * This ensures that a process modified by FCFS doesn't carry 
+ * 'finish_time' or 'priority' data into the RR or MLFQ runs.
+ */
 void reset_procs(Process *dest, Process *src, int count) {
     for (int i = 0; i < count; i++) {
         dest[i] = src[i]; 
@@ -16,8 +21,6 @@ void reset_procs(Process *dest, Process *src, int count) {
         dest[i].time_in_queue = 0;
         dest[i].lowest_priority_attained = 0;
         dest[i].demotion_time = -1;
-        // If you added 'enqueued' or similar for your RR fix, reset it here:
-        // dest[i].enqueued = 0; 
     }
 }
 
@@ -25,26 +28,30 @@ void run_comparative_analysis(Process *original_procs, int count, const char *ml
     char *algos[] = {"FCFS", "SJF", "STCF", "RR", "MLFQ"};
     int num_algos = 5;
     SchedulingMetrics results[5];
+    
+    // 1. Ownership: We allocate a temporary work array for the benchmark
     Process *temp_procs = malloc(sizeof(Process) * count);
-
     if (!temp_procs) {
-        fprintf(stderr, "Memory allocation failed for comparative analysis.\n");
+        fprintf(stderr, "Critical: Memory allocation failed for comparison.\n");
         return;
     }
 
-    // Initialize the configuration object once
+    // 2. Load MLFQ config once for the entire comparative session
+    MLFQConfig *mlfq_cfg = load_mlfq_config(mlfq_conf);
+    
+    // Prepare the configuration wrapper
     SchedulerConfig config;
-    config.quantum = 10; // Standard quantum for benchmark
-    config.mlfq_cfg = load_mlfq_config(mlfq_conf);
+    config.quantum = 10; 
+    config.mlfq_cfg = mlfq_cfg;
 
     for (int i = 0; i < num_algos; i++) {
+        // 3. Reset state: Every algorithm starts with a "clean" copy of the data
         reset_procs(temp_procs, original_procs, count);
         strncpy(results[i].algo_name, algos[i], sizeof(results[i].algo_name) - 1);
 
         AlgorithmPicker picker = NULL;
         int is_preemptive = 0;
 
-        // Select the appropriate picker function
         if (strcmp(algos[i], "FCFS") == 0) {
             picker = pick_fcfs;
         } else if (strcmp(algos[i], "SJF") == 0) {
@@ -60,12 +67,10 @@ void run_comparative_analysis(Process *original_procs, int count, const char *ml
             is_preemptive = 1;
         }
 
-        // Execute the simulation. 
-        // Note: No more 'set_rr_quantum' or 'set_mlfq_config' calls.
-        // The picker functions now extract these from the 'config' pointer.
+        // 4. Run Simulation: We pass the config pointer (maintaining clear ownership)
         run_simulation(temp_procs, count, picker, is_preemptive, &config);
 
-        // Metric Calculation
+        // 5. Calculate Metrics for this specific run
         double tt = 0, wt = 0, rt = 0;
         for (int j = 0; j < count; j++) {
             int turn = temp_procs[j].finish_time - temp_procs[j].arrival_time;
@@ -79,10 +84,15 @@ void run_comparative_analysis(Process *original_procs, int count, const char *ml
         results[i].avg_response_time = rt / count;
     }
 
-    // Output the final results table
+    // Output the results table
     display_comparison_table(results, num_algos);
 
-    // Cleanup
-    if (config.mlfq_cfg) free(config.mlfq_cfg);
-    free(temp_procs);
+    // 6. Final Cleanup: Explicitly free nested resources
+    if (mlfq_cfg) {
+        free_mlfq_config(mlfq_cfg);
+    }
+    
+    if (temp_procs) {
+        free_processes(temp_procs);
+    }
 }
