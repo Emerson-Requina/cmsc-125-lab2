@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/process.h"
+#include "process.h"
 
 Process* load_processes(const char *filename, int *count) {
     FILE *file = fopen(filename, "r");

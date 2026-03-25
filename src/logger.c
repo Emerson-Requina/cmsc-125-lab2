@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/logger.h"
+#include "logger.h"
 
 // void log_step(int time, const char* pid, const char* status) {
 //     printf("[TIME %d] Process %s: %s\n", time, pid, status);

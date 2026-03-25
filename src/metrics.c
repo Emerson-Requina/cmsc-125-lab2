@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/metrics.h"
-#include "../include/mlfq.h"
+#include "metrics.h"
+#include "mlfq.h"
 
 void calculate_metrics(Process *processes, int count) {
     double total_tt = 0, total_wt = 0, total_rt = 0;

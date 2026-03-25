@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/mlfq.h"
+#include "mlfq.h"
+#include "scheduler.h"
 
-static MLFQConfig *mlfq_config = NULL;
-static int time_slice_counter = 0;   
-// static int total_allotment_used = 0; 
+static int time_slice_counter = 0;
 
-void set_mlfq_config(MLFQConfig *cfg) {
-    mlfq_config = cfg;
-}
-
-Process* pick_mlfq(Process *procs, int count, int time, Process *current) {
+Process* pick_mlfq(Process *procs, int count, int time, Process *current, SchedulerConfig *config) {
+    MLFQConfig *mlfq_config = config->mlfq_cfg; // Pulls config from the parameter and not a global setter
     if (!mlfq_config) return NULL;
 
     // 1. Priority Boost (Existing logic is fine)
@@ -64,7 +60,7 @@ Process* pick_mlfq(Process *procs, int count, int time, Process *current) {
         }
     }
 
-    // 3. Selection Logic (Existing logic is fine)
+    // 3. Selection Logic
     if (current == NULL) {
         for (int q = 0; q < mlfq_config->level_count; q++) {
             for (int i = 0; i < count; i++) {

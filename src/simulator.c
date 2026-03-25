@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <string.h>
-#include "../include/scheduler.h"
-#include "../include/logger.h"
-#include "../include/gantt.h"
+#include "scheduler.h"
+#include "logger.h"
+#include "gantt.h"
 
-void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_preemptive) {
+void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_preemptive, SchedulerConfig *config) {
     int current_time = 0;
     int completed = 0;
     Process *current_running = NULL;
@@ -18,7 +18,7 @@ void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_pr
         
         // If preemptive, we check every tick. If not, we only check if the CPU is empty.
         if (is_preemptive || current_running == NULL) {
-            next_up = picker(procs, count, current_time, current_running);
+            next_up = picker(procs, count, current_time, current_running, config);
         }
 
         // 2. CONTEXT SWITCH DETECTION: Did the process change?
