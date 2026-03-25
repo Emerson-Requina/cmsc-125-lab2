@@ -10,12 +10,12 @@
 #include "mlfq.h"
 #include "comparison.h"
 
-// Helper to normalize algorithm names
+// Helper to normalize algorithm names to uppercase
 void str_toupper(char* str) {
     for (; *str; ++str) *str = toupper(*str);
 }
 
-// Deep copy processes
+// Deep copy processes to preserve original data for reporting or comparison
 Process* clone_processes(Process* original, int count) {
     if (!original) return NULL;
     Process* copy = malloc(sizeof(Process) * count);
@@ -24,17 +24,18 @@ Process* clone_processes(Process* original, int count) {
     return copy;
 }
 
+// Logic validation for MLFQ specific constraints
 int validate_mlfq_config(MLFQConfig *cfg) {
     if (!cfg) return 0;
-    // Ensure we have at least one queue and a positive boost period
     if (cfg->level_count <= 0 || cfg->boost_period <= 0) {
-        fprintf(stderr, "\033[0;31m[ERROR]\033[0m MLFQ config must have >0 levels and positive boost period.\n");
+        fprintf(stderr, "\033[0;31m[ERROR]\033[0m MLFQ must have at least one queue and a positive boost period.\n");
         return 0;
     }
     for (int i = 0; i < cfg->level_count; i++) {
+        // Quantum should not exceed allotment (except for the bottom queue which usually has -1 allotment)
         if (cfg->levels[i].allotment != -1 && cfg->levels[i].quantum > cfg->levels[i].allotment) {
-            fprintf(stderr, "\033[0;31m[ERROR]\033[0m Invalid ratio in Q%d: Quantum (%d) > Allotment (%d)\n", 
-                    i, cfg->levels[i].quantum, cfg->levels[i].allotment);
+            fprintf(stderr, "\033[0;31m[ERROR]\033[0m Invalid config in Q%d: Quantum (%d) > Allotment (%d)\n", 
+                    cfg->levels[i].queue_id, cfg->levels[i].quantum, cfg->levels[i].allotment);
             return 0;
         }
     }
@@ -48,6 +49,7 @@ int main(int argc, char *argv[]) {
     int quantum_arg = 10;
     int compare_mode = 0;
 
+    // Initialize pointers to NULL for safe cleanup
     Process *base_processes = NULL;
     Process *work_processes = NULL;
     MLFQConfig *mlfq_cfg = NULL;
@@ -73,7 +75,7 @@ int main(int argc, char *argv[]) {
             case 'q':
                 quantum_arg = (int)strtol(optarg, &endptr, 10);
                 if (*endptr != '\0' || quantum_arg <= 0) {
-                    fprintf(stderr, "Error: Invalid quantum.\n");
+                    fprintf(stderr, "\033[0;31m[ERROR]\033[0m Invalid quantum value.\n");
                     return 1;
                 }
                 break;
@@ -83,18 +85,18 @@ int main(int argc, char *argv[]) {
     }
 
     if (!input_file) {
-        fprintf(stderr, "Usage: %s --input=<FILE> [--compare] [-a ALGO]\n", argv[0]);
+        fprintf(stderr, "Usage: %s --input=<FILE> [--compare] [-a ALGORITHM]\n", argv[0]);
         return 1;
     }
 
-    // 1. Load Processes
+    // 1. Load Process Workload
     base_processes = load_processes(input_file, &process_count);
     if (!base_processes || process_count == 0) {
-        fprintf(stderr, "\033[0;31m[ERROR]\033[0m Workload file is empty or missing.\n");
+        fprintf(stderr, "\033[0;31m[ERROR]\033[0m Failed to load processes or file is empty.\n");
         return 1;
     }
 
-    // 2. Comparison Mode Logic
+    // 2. Comparison Mode (Short-circuit for analysis)
     if (compare_mode) {
         printf("Starting Comparative Analysis Mode...\n");
         run_comparative_analysis(base_processes, process_count, mlfq_file);
@@ -107,7 +109,7 @@ int main(int argc, char *argv[]) {
     AlgorithmPicker picker = NULL;
     int is_preemptive = 0;
 
-    // ALGORITHM SELECTION CHAIN
+    // Algorithm Selection Dispatcher
     if (strcmp(algo_name, "FCFS") == 0) {
         picker = pick_fcfs;
     } else if (strcmp(algo_name, "SJF") == 0) {
@@ -121,33 +123,33 @@ int main(int argc, char *argv[]) {
         is_preemptive = 1;
     } else if (strcmp(algo_name, "MLFQ") == 0) {
         mlfq_cfg = load_mlfq_config(mlfq_file);
-
-        // ERROR: MLFQ Config file empty or missing
+        
+        // Handle file-level failures (missing/empty file)
         if (!mlfq_cfg) {
-            fprintf(stderr, "\033[0;31m[FATAL]\033[0m Could not initialize MLFQ from %s\n", mlfq_file);
+            fprintf(stderr, "\033[0;31m[ERROR]\033[0m MLFQ setup failed for file: %s\n", mlfq_file);
             exit_code = 1;
             goto cleanup;
         }
 
-        // ERROR: MLFQ Config content is logically invalid
+        // Handle logic-level failures (malformed data)
         if (!validate_mlfq_config(mlfq_cfg)) {
             exit_code = 1;
             goto cleanup;
         }
+        
         config.mlfq_cfg = mlfq_cfg;
         picker = pick_mlfq;
         is_preemptive = 1; 
     } else {
-        // ERROR: Unknown Algorithm Name (e.g., -a=XYZ)
+        // Unknown Algorithm Guard
         fprintf(stderr, "\033[0;31m[ERROR]\033[0m Unknown algorithm: '%s'\n", algo_name);
         fprintf(stderr, "Supported: FCFS, SJF, STCF, RR, MLFQ\n");
         exit_code = 1;
         goto cleanup;
     }
 
-    // 4. Execution Guard
-    // Only enters simulation if setup was successful
-    if (exit_code == 0 && picker != NULL) {
+    // 4. Execution Guard (Prevents Segfaults if picker is NULL)
+    if (picker != NULL) {
         printf("Starting %s Simulation...\n", algo_name);
         run_simulation(work_processes, process_count, picker, is_preemptive, &config);
         
@@ -161,6 +163,7 @@ int main(int argc, char *argv[]) {
     }
 
 cleanup:
+    // 6. Explicit Resource Release
     if (base_processes) free_processes(base_processes);
     if (work_processes) free_processes(work_processes);
     if (mlfq_cfg) free_mlfq_config(mlfq_cfg);
