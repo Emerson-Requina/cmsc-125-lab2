@@ -44,3 +44,15 @@ Process* load_processes(const char *filename, int *count) {
     fclose(file);
     return processes;
 }
+
+void free_processes(Process *procs, int count) {
+    if (!procs) return;
+
+    // If your Process struct has heap-allocated fields, free them here
+    // Example: if you had 'char *name', you would do:
+    // for (int i = 0; i < count; i++) {
+    //     if (procs[i].name) free(procs[i].name);
+    // }
+
+    free(procs); // Finally, free the array itself
+}
