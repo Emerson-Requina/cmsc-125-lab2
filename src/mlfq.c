@@ -3,6 +3,17 @@
 #include "mlfq.h"
 #include "scheduler.h"
 
+void free_mlfq_config(MLFQConfig *cfg) {
+    if (!cfg) return;
+
+    // If the 'levels' array inside the struct was allocated separately:
+    if (cfg->levels) {
+        free(cfg->levels);
+    }
+
+    free(cfg);
+}
+
 static int time_slice_counter = 0;
 
 Process* pick_mlfq(Process *procs, int count, int time, Process *current, SchedulerConfig *config) {
@@ -73,3 +84,4 @@ Process* pick_mlfq(Process *procs, int count, int time, Process *current, Schedu
     }
     return current;
 }
+

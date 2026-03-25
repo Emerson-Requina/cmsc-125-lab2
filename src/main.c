@@ -8,7 +8,7 @@
 #include "gantt.h"
 #include "logger.h"
 #include "mlfq.h"
-#include "comparison.h" // Essential for the comparison mode
+#include "comparison.h"
 
 // Helper to normalize algorithm names
 void str_toupper(char* str) {
@@ -21,6 +21,9 @@ Process* clone_processes(Process* original, int count) {
     Process* copy = malloc(sizeof(Process) * count);
     if (!copy) return NULL;
     memcpy(copy, original, sizeof(Process) * count);
+    
+    // NOTE: If Process had heap-allocated strings, you would 
+    // need to strdup() them here for a true deep copy.
     return copy;
 }
 
@@ -29,6 +32,7 @@ int validate_mlfq_config(MLFQConfig *cfg) {
     if (cfg->level_count <= 0 || cfg->boost_period <= 0) return 0;
     for (int i = 0; i < cfg->level_count; i++) {
         if (cfg->levels[i].allotment != -1 && cfg->levels[i].quantum > cfg->levels[i].allotment) {
+            fprintf(stderr, "Error: Invalid allotment/quantum ratio in Q%d\n", i);
             return 0;
         }
     }
@@ -40,7 +44,7 @@ int main(int argc, char *argv[]) {
     char *mlfq_file = "config/mlfq.conf"; 
     char *algo_name = "FCFS"; 
     int quantum_arg = 10;
-    int compare_mode = 0; // RE-ADDED
+    int compare_mode = 0;
 
     Process *base_processes = NULL;
     Process *work_processes = NULL;
@@ -53,12 +57,11 @@ int main(int argc, char *argv[]) {
         {"input",        required_argument, 0, 'i'},
         {"quantum",      required_argument, 0, 'q'},
         {"mlfq-config",  required_argument, 0, 'm'},
-        {"compare",      no_argument,       0, 'c'}, // RE-ADDED
+        {"compare",      no_argument,       0, 'c'},
         {0, 0, 0, 0}
     };
 
     int opt;
-    // Updated optstring to include 'c'
     while ((opt = getopt_long(argc, argv, "a:i:q:m:c", long_options, NULL)) != -1) {
         char *endptr;
         switch (opt) {
@@ -69,7 +72,7 @@ int main(int argc, char *argv[]) {
             case 'i':
                 input_file = optarg;
                 break;
-            case 'c': // RE-ADDED
+            case 'c':
                 compare_mode = 1;
                 break;
             case 'q':
@@ -92,17 +95,19 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    // 1. Load original process list
     base_processes = load_processes(input_file, &process_count);
     if (!base_processes || process_count == 0) return 1;
 
     // --- LOGIC SPLIT: COMPARISON VS SINGLE RUN ---
     if (compare_mode) {
         printf("Starting Comparative Analysis Mode...\n");
+        // Ownership: main owns base_processes, comparison function creates its own clones
         run_comparative_analysis(base_processes, process_count, mlfq_file);
-        goto cleanup; // Exit after comparison
+        goto cleanup; 
     }
 
-    // SINGLE ALGORITHM MODE
+    // 2. Prepare for single simulation
     work_processes = clone_processes(base_processes, process_count);
     SchedulerConfig config = {0};
     AlgorithmPicker picker = NULL;
@@ -125,13 +130,15 @@ int main(int argc, char *argv[]) {
             exit_code = 1;
             goto cleanup;
         }
-        config.mlfq_cfg = mlfq_cfg;
+        config.mlfq_cfg = mlfq_cfg; // Registration (Ownership remains in main)
         picker = pick_mlfq;
         is_preemptive = 1; 
     }
 
     printf("Starting %s Simulation...\n", algo_name);
     run_simulation(work_processes, process_count, picker, is_preemptive, &config);
+    
+    // 3. Post-simulation Reporting
     calculate_metrics(work_processes, process_count);
     print_gantt_chart(1);
 
@@ -140,9 +147,22 @@ int main(int argc, char *argv[]) {
     }
 
 cleanup:
-    if (base_processes) free(base_processes);
-    if (work_processes) free(work_processes);
-    if (mlfq_cfg) free(mlfq_cfg);
+    // --- 4. EXPLICIT CLEANUP (Fixes Memory Ownership & Leaks) ---
+    
+    // Deep free the original process list
+    if (base_processes) {
+        free_processes(base_processes, process_count);
+    }
+
+    // Deep free the mutated process list used in the simulation
+    if (work_processes) {
+        free_processes(work_processes, process_count);
+    }
+
+    // Deep free the MLFQ configuration
+    if (mlfq_cfg) {
+        free_mlfq_config(mlfq_cfg);
+    }
     
     return exit_code;
 }

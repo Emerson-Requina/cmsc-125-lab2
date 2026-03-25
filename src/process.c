@@ -54,5 +54,5 @@ void free_processes(Process *procs, int count) {
     //     if (procs[i].name) free(procs[i].name);
     // }
 
-    free(procs); // Finally, free the array itself
+    free(procs);
 }
