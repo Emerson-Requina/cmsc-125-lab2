@@ -1,22 +1,24 @@
 #ifndef MLFQ_H
 #define MLFQ_H
 
-#include "process.h"
+#define MAX_LEVELS 10
 
-typedef struct {
+// Give the struct a name: MLFQLevel
+typedef struct MLFQLevel {
     int queue_id;
     int quantum;
-    int allotment;
+    int allotment; 
 } MLFQLevel;
 
-// Added 'MLFQConfig' here to give the struct a name
-typedef struct MLFQConfig { 
-    MLFQLevel levels[10];
+// Give the struct a name: MLFQConfig
+typedef struct MLFQConfig {
+    MLFQLevel levels[MAX_LEVELS];
     int level_count;
     int boost_period;
 } MLFQConfig;
 
 MLFQConfig* load_mlfq_config(const char *filename);
-void set_mlfq_config(MLFQConfig *cfg);
+int validate_mlfq_config(MLFQConfig *cfg);
 void free_mlfq_config(MLFQConfig *cfg);
+
 #endif
