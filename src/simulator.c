@@ -13,7 +13,14 @@ void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_pr
     int burst_start_time = 0;
 
     while (completed < count) {
-        // 1. Determine if we need to pick a new process
+        // 1 - Check for arrivals at the very start of every time tick
+        for (int i = 0; i < count; i++) {
+            if (procs[i].arrival_time == current_time) {
+                log_arrival(current_time, procs[i].pid);
+            }
+        }
+
+        // 2 - Determine if we need to pick a new process
         Process *next_up = current_running;
         
         // If preemptive, we check every tick. If not, we only check if the CPU is empty.
@@ -25,6 +32,10 @@ void run_simulation(Process *procs, int count, AlgorithmPicker picker, int is_pr
         if (next_up != current_running) {
             // Record the block that just finished in the Gantt chart
             if (current_running != NULL) {
+                // If the process didn't finish (remaining > 0), it was preempted
+                if (current_running->remaining_time > 0 && next_up != NULL) {
+                    log_preemption(current_time, current_running->pid, next_up->pid);
+                }
                 log_execution(current_running->pid, burst_start_time, current_time);
             } else if (current_time > 0 && burst_start_time < current_time) {
                 // This records gaps where the CPU was IDLE
