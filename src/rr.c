@@ -4,55 +4,83 @@
 #include "scheduler.h"
 
 #define MAX_PROCESSES 100
+
+// The active queue being processed
 static Process* ready_queue[MAX_PROCESSES];
 static int head = 0, tail = 0;
+
+// Temporary buffer for new arrivals that aren't allowed in yet
+static Process* arrival_buffer[MAX_PROCESSES];
+static int buffer_count = 0;
+
+// Temporary buffer for processes that just finished a slice and are waiting for the queue to empty
+static Process* finished_slice_buffer[MAX_PROCESSES];
+static int finished_count = 0;
+
 static int time_slice_counter = 0;
 
 Process* pick_rr(Process *procs, int count, int time, Process *current, SchedulerConfig *config) {
     int q = config->quantum;
-    
-    // 1. Quantum/Preemption Logic FIRST
-    // We check if the current process needs to be moved to the back of the queue
-    // BEFORE we add new arrivals, ensuring new arrivals are truly "last".
-    if (current != NULL) {
-        time_slice_counter++;
 
-        // If it used its quantum but still has work to do...
-        if (time_slice_counter >= q) {
-            if (current->remaining_time > 0) {
-                ready_queue[tail % MAX_PROCESSES] = current;
-                tail++;
+    // 1. Capture ALL new arrivals into a HOLDING BUFFER (not the ready queue)
+    for (int i = 0; i < count; i++) {
+        if (procs[i].arrival_time == time) {
+            if (procs[i].remaining_time == procs[i].burst_time && procs[i].start_time == -1) {
+                arrival_buffer[buffer_count++] = &procs[i];
             }
-            time_slice_counter = 0;
-            current = NULL; // Force a reschedule
-        } 
-        // If it actually finished its work mid-quantum
-        else if (current->remaining_time <= 0) {
-            time_slice_counter = 0;
-            current = NULL;
         }
     }
 
-    // 2. Handle New Arrivals SECOND
-    // By placing this after the preemption logic, these processes 
-    // are guaranteed to be behind a preempted process in the circular buffer.
-    for (int i = 0; i < count; i++) {
-        if (procs[i].arrival_time == time) {
-            // Safety check: ensure we don't double-add if pick_rr is called 
-            // multiple times at the same 'time' (depends on your simulation loop)
-            if (procs[i].remaining_time == procs[i].burst_time && procs[i].start_time == -1) {
-                ready_queue[tail % MAX_PROCESSES] = &procs[i];
-                tail++;
-            }
-        }
-    }            
+    // 2. Manage the current running process
+    if (current != NULL) {
+        time_slice_counter++;
 
-    // 3. Selection
+        // If process finished its burst early
+        if (current->remaining_time <= 0) {
+            current = NULL;
+            time_slice_counter = 0;
+        } 
+        // If process finished its time slice
+        else if (time_slice_counter >= q) {
+            // Move to "Finished Slice" buffer, NOT the ready queue yet
+            finished_slice_buffer[finished_count++] = current;
+            current = NULL;
+            time_slice_counter = 0;
+        } else {
+            // Continue running current process until slice or burst ends
+            return current;
+        }
+    }
+
+    // 3. If no one is running, try to pick from the Ready Queue
     if (current == NULL) {
         if (head < tail) {
-            current = ready_queue[head % MAX_PROCESSES];
-            head++;
-            time_slice_counter = 0; 
+            current = ready_queue[head++];
+            time_slice_counter = 0;
+        } 
+        // 4. If Ready Queue is EMPTY, perform the "Batch Update"
+        else {
+            // Reset queue pointers
+            head = 0;
+            tail = 0;
+
+            // First: Re-enqueue processes that finished their slices (the "previous" generation)
+            for (int i = 0; i < finished_count; i++) {
+                ready_queue[tail++] = finished_slice_buffer[i];
+            }
+            finished_count = 0;
+
+            // Second: Finally enqueue the new arrivals that were waiting
+            for (int i = 0; i < buffer_count; i++) {
+                ready_queue[tail++] = arrival_buffer[i];
+            }
+            buffer_count = 0;
+
+            // Now try to pick from the newly populated queue
+            if (head < tail) {
+                current = ready_queue[head++];
+                time_slice_counter = 0;
+            }
         }
     }
 
