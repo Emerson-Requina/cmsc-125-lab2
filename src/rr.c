@@ -45,7 +45,7 @@ Process* pick_rr(Process *procs, int count, int time, Process *current, Schedule
                 tail++;
             }
         }
-    }
+    }            
 
     // 3. Selection
     if (current == NULL) {

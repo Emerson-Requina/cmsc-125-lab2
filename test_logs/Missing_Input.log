@@ -1,0 +1,2 @@
+[0;31m[ERROR][0m Could not open workload file: non_existent.txt
+[0;31m[ERROR][0m Failed to load processes or file is empty.
