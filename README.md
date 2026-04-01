@@ -64,7 +64,7 @@ The simulator is built on a **State-Machine architecture** to ensure the simulat
 * **Integer Precision:** Metrics are calculated using double-precision floating point, but very large workloads may eventually encounter overflow if total simulation time exceeds `INT_MAX`.
 
 ## 5. Screenshots
-Result for Round Robbin
+Sample Results
 ![Round Robin](screenshots/rr.png)
 Result for MLFQ
 ![MLFQ](screenshots/mlfq.png)
