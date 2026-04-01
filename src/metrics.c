@@ -4,9 +4,10 @@
 #include "metrics.h"
 #include "mlfq.h"
 
-void calculate_metrics(Process *processes, int count) {
+void calculate_metrics(Process *processes, int count, MLFQConfig *config) {
     double total_tt = 0, total_wt = 0, total_rt = 0;
 
+    // --- Standard Table Header ---
     printf("\n--- Scheduling Metrics ---\n");
     printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", 
            "PID", "Arrival", "Burst", "Finish", "TT", "WT");
@@ -30,6 +31,12 @@ void calculate_metrics(Process *processes, int count) {
     printf("Average Turnaround Time: %.2f\n", total_tt / count);
     printf("Average Waiting Time:    %.2f\n", total_wt / count);
     printf("Average Response Time:   %.2f\n", total_rt / count);
+
+    // If the config passed to us contains MLFQ data, we trigger the extra report.
+    // main.c doesn't need to know this happens.
+    if (config != NULL) {
+        print_mlfq_behavior_report(processes, count, config);
+    }
 }
 
 void display_comparison_table(SchedulingMetrics *results, int num_algos) {

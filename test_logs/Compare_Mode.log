@@ -2419,40 +2419,40 @@ Starting Comparative Analysis Mode...
 [TIME 037] Process P1   : Running
 [TIME 038] Process P1   : Running
 [TIME 039] Process P1   : Running
-[TIME 040] PREEMPTION   : P1 yielded to P3
-[TIME 040] Process P3   : Running
-[TIME 041] Process P3   : Running
-[TIME 042] Process P3   : Running
-[TIME 043] Process P3   : Running
-[TIME 044] Process P3   : Running
-[TIME 045] Process P3   : Running
-[TIME 046] Process P3   : Running
-[TIME 047] Process P3   : Running
-[TIME 048] Process P3   : Running
-[TIME 049] Process P3   : Running
-[TIME 050] PREEMPTION   : P3 yielded to P4
-[TIME 050] Process P4   : Running
-[TIME 051] Process P4   : Running
-[TIME 052] Process P4   : Running
-[TIME 053] Process P4   : Running
-[TIME 054] Process P4   : Running
-[TIME 055] Process P4   : Running
-[TIME 056] Process P4   : Running
-[TIME 057] Process P4   : Running
-[TIME 058] Process P4   : Running
-[TIME 059] Process P4   : Running
-[TIME 060] PREEMPTION   : P4 yielded to P2
-[TIME 060] Process P2   : Running
-[TIME 061] Process P2   : Running
-[TIME 062] Process P2   : Running
-[TIME 063] Process P2   : Running
-[TIME 064] Process P2   : Running
-[TIME 065] Process P2   : Running
-[TIME 066] Process P2   : Running
-[TIME 067] Process P2   : Running
-[TIME 068] Process P2   : Running
-[TIME 069] Process P2   : Running
-[TIME 070] PREEMPTION   : P2 yielded to P5
+[TIME 040] PREEMPTION   : P1 yielded to P2
+[TIME 040] Process P2   : Running
+[TIME 041] Process P2   : Running
+[TIME 042] Process P2   : Running
+[TIME 043] Process P2   : Running
+[TIME 044] Process P2   : Running
+[TIME 045] Process P2   : Running
+[TIME 046] Process P2   : Running
+[TIME 047] Process P2   : Running
+[TIME 048] Process P2   : Running
+[TIME 049] Process P2   : Running
+[TIME 050] PREEMPTION   : P2 yielded to P3
+[TIME 050] Process P3   : Running
+[TIME 051] Process P3   : Running
+[TIME 052] Process P3   : Running
+[TIME 053] Process P3   : Running
+[TIME 054] Process P3   : Running
+[TIME 055] Process P3   : Running
+[TIME 056] Process P3   : Running
+[TIME 057] Process P3   : Running
+[TIME 058] Process P3   : Running
+[TIME 059] Process P3   : Running
+[TIME 060] PREEMPTION   : P3 yielded to P4
+[TIME 060] Process P4   : Running
+[TIME 061] Process P4   : Running
+[TIME 062] Process P4   : Running
+[TIME 063] Process P4   : Running
+[TIME 064] Process P4   : Running
+[TIME 065] Process P4   : Running
+[TIME 066] Process P4   : Running
+[TIME 067] Process P4   : Running
+[TIME 068] Process P4   : Running
+[TIME 069] Process P4   : Running
+[TIME 070] PREEMPTION   : P4 yielded to P5
 [TIME 070] Process P5   : Running
 [TIME 071] Process P5   : Running
 [TIME 072] Process P5   : Running
@@ -2474,40 +2474,40 @@ Starting Comparative Analysis Mode...
 [TIME 087] Process P1   : Running
 [TIME 088] Process P1   : Running
 [TIME 089] Process P1   : Running
-[TIME 090] PREEMPTION   : P1 yielded to P3
-[TIME 090] Process P3   : Running
-[TIME 091] Process P3   : Running
-[TIME 092] Process P3   : Running
-[TIME 093] Process P3   : Running
-[TIME 094] Process P3   : Running
-[TIME 095] Process P3   : Running
-[TIME 096] Process P3   : Running
-[TIME 097] Process P3   : Running
-[TIME 098] Process P3   : Running
-[TIME 099] Process P3   : Running
-[TIME 100] PREEMPTION   : P3 yielded to P4
-[TIME 100] Process P4   : Running
-[TIME 101] Process P4   : Running
-[TIME 102] Process P4   : Running
-[TIME 103] Process P4   : Running
-[TIME 104] Process P4   : Running
-[TIME 105] Process P4   : Running
-[TIME 106] Process P4   : Running
-[TIME 107] Process P4   : Running
-[TIME 108] Process P4   : Running
-[TIME 109] Process P4   : Running
-[TIME 110] PREEMPTION   : P4 yielded to P2
-[TIME 110] Process P2   : Running
-[TIME 111] Process P2   : Running
-[TIME 112] Process P2   : Running
-[TIME 113] Process P2   : Running
-[TIME 114] Process P2   : Running
-[TIME 115] Process P2   : Running
-[TIME 116] Process P2   : Running
-[TIME 117] Process P2   : Running
-[TIME 118] Process P2   : Running
-[TIME 119] Process P2   : Running
-[TIME 120] PREEMPTION   : P2 yielded to P5
+[TIME 090] PREEMPTION   : P1 yielded to P2
+[TIME 090] Process P2   : Running
+[TIME 091] Process P2   : Running
+[TIME 092] Process P2   : Running
+[TIME 093] Process P2   : Running
+[TIME 094] Process P2   : Running
+[TIME 095] Process P2   : Running
+[TIME 096] Process P2   : Running
+[TIME 097] Process P2   : Running
+[TIME 098] Process P2   : Running
+[TIME 099] Process P2   : Running
+[TIME 100] PREEMPTION   : P2 yielded to P3
+[TIME 100] Process P3   : Running
+[TIME 101] Process P3   : Running
+[TIME 102] Process P3   : Running
+[TIME 103] Process P3   : Running
+[TIME 104] Process P3   : Running
+[TIME 105] Process P3   : Running
+[TIME 106] Process P3   : Running
+[TIME 107] Process P3   : Running
+[TIME 108] Process P3   : Running
+[TIME 109] Process P3   : Running
+[TIME 110] PREEMPTION   : P3 yielded to P4
+[TIME 110] Process P4   : Running
+[TIME 111] Process P4   : Running
+[TIME 112] Process P4   : Running
+[TIME 113] Process P4   : Running
+[TIME 114] Process P4   : Running
+[TIME 115] Process P4   : Running
+[TIME 116] Process P4   : Running
+[TIME 117] Process P4   : Running
+[TIME 118] Process P4   : Running
+[TIME 119] Process P4   : Running
+[TIME 120] PREEMPTION   : P4 yielded to P5
 [TIME 120] Process P5   : Running
 [TIME 121] Process P5   : Running
 [TIME 122] Process P5   : Running
@@ -2529,40 +2529,40 @@ Starting Comparative Analysis Mode...
 [TIME 137] Process P1   : Running
 [TIME 138] Process P1   : Running
 [TIME 139] Process P1   : Running
-[TIME 140] PREEMPTION   : P1 yielded to P3
-[TIME 140] Process P3   : Running
-[TIME 141] Process P3   : Running
-[TIME 142] Process P3   : Running
-[TIME 143] Process P3   : Running
-[TIME 144] Process P3   : Running
-[TIME 145] Process P3   : Running
-[TIME 146] Process P3   : Running
-[TIME 147] Process P3   : Running
-[TIME 148] Process P3   : Running
-[TIME 149] Process P3   : Running
-[TIME 150] PREEMPTION   : P3 yielded to P4
-[TIME 150] Process P4   : Running
-[TIME 151] Process P4   : Running
-[TIME 152] Process P4   : Running
-[TIME 153] Process P4   : Running
-[TIME 154] Process P4   : Running
-[TIME 155] Process P4   : Running
-[TIME 156] Process P4   : Running
-[TIME 157] Process P4   : Running
-[TIME 158] Process P4   : Running
-[TIME 159] Process P4   : Running
-[TIME 160] PREEMPTION   : P4 yielded to P2
-[TIME 160] Process P2   : Running
-[TIME 161] Process P2   : Running
-[TIME 162] Process P2   : Running
-[TIME 163] Process P2   : Running
-[TIME 164] Process P2   : Running
-[TIME 165] Process P2   : Running
-[TIME 166] Process P2   : Running
-[TIME 167] Process P2   : Running
-[TIME 168] Process P2   : Running
-[TIME 169] Process P2   : Running
-[TIME 170] PREEMPTION   : P2 yielded to P5
+[TIME 140] PREEMPTION   : P1 yielded to P2
+[TIME 140] Process P2   : Running
+[TIME 141] Process P2   : Running
+[TIME 142] Process P2   : Running
+[TIME 143] Process P2   : Running
+[TIME 144] Process P2   : Running
+[TIME 145] Process P2   : Running
+[TIME 146] Process P2   : Running
+[TIME 147] Process P2   : Running
+[TIME 148] Process P2   : Running
+[TIME 149] Process P2   : Running
+[TIME 150] PREEMPTION   : P2 yielded to P3
+[TIME 150] Process P3   : Running
+[TIME 151] Process P3   : Running
+[TIME 152] Process P3   : Running
+[TIME 153] Process P3   : Running
+[TIME 154] Process P3   : Running
+[TIME 155] Process P3   : Running
+[TIME 156] Process P3   : Running
+[TIME 157] Process P3   : Running
+[TIME 158] Process P3   : Running
+[TIME 159] Process P3   : Running
+[TIME 160] PREEMPTION   : P3 yielded to P4
+[TIME 160] Process P4   : Running
+[TIME 161] Process P4   : Running
+[TIME 162] Process P4   : Running
+[TIME 163] Process P4   : Running
+[TIME 164] Process P4   : Running
+[TIME 165] Process P4   : Running
+[TIME 166] Process P4   : Running
+[TIME 167] Process P4   : Running
+[TIME 168] Process P4   : Running
+[TIME 169] Process P4   : Running
+[TIME 170] PREEMPTION   : P4 yielded to P5
 [TIME 170] Process P5   : Running
 [TIME 171] Process P5   : Running
 [TIME 172] Process P5   : Running
@@ -2584,40 +2584,40 @@ Starting Comparative Analysis Mode...
 [TIME 187] Process P1   : Running
 [TIME 188] Process P1   : Running
 [TIME 189] Process P1   : Running
-[TIME 190] PREEMPTION   : P1 yielded to P3
-[TIME 190] Process P3   : Running
-[TIME 191] Process P3   : Running
-[TIME 192] Process P3   : Running
-[TIME 193] Process P3   : Running
-[TIME 194] Process P3   : Running
-[TIME 195] Process P3   : Running
-[TIME 196] Process P3   : Running
-[TIME 197] Process P3   : Running
-[TIME 198] Process P3   : Running
-[TIME 199] Process P3   : Running
-[TIME 200] PREEMPTION   : P3 yielded to P4
-[TIME 200] Process P4   : Running
-[TIME 201] Process P4   : Running
-[TIME 202] Process P4   : Running
-[TIME 203] Process P4   : Running
-[TIME 204] Process P4   : Running
-[TIME 205] Process P4   : Running
-[TIME 206] Process P4   : Running
-[TIME 207] Process P4   : Running
-[TIME 208] Process P4   : Running
-[TIME 209] Process P4   : Running
-[TIME 210] PREEMPTION   : P4 yielded to P2
-[TIME 210] Process P2   : Running
-[TIME 211] Process P2   : Running
-[TIME 212] Process P2   : Running
-[TIME 213] Process P2   : Running
-[TIME 214] Process P2   : Running
-[TIME 215] Process P2   : Running
-[TIME 216] Process P2   : Running
-[TIME 217] Process P2   : Running
-[TIME 218] Process P2   : Running
-[TIME 219] Process P2   : Running
-[TIME 220] PREEMPTION   : P2 yielded to P5
+[TIME 190] PREEMPTION   : P1 yielded to P2
+[TIME 190] Process P2   : Running
+[TIME 191] Process P2   : Running
+[TIME 192] Process P2   : Running
+[TIME 193] Process P2   : Running
+[TIME 194] Process P2   : Running
+[TIME 195] Process P2   : Running
+[TIME 196] Process P2   : Running
+[TIME 197] Process P2   : Running
+[TIME 198] Process P2   : Running
+[TIME 199] Process P2   : Running
+[TIME 200] PREEMPTION   : P2 yielded to P3
+[TIME 200] Process P3   : Running
+[TIME 201] Process P3   : Running
+[TIME 202] Process P3   : Running
+[TIME 203] Process P3   : Running
+[TIME 204] Process P3   : Running
+[TIME 205] Process P3   : Running
+[TIME 206] Process P3   : Running
+[TIME 207] Process P3   : Running
+[TIME 208] Process P3   : Running
+[TIME 209] Process P3   : Running
+[TIME 210] PREEMPTION   : P3 yielded to P4
+[TIME 210] Process P4   : Running
+[TIME 211] Process P4   : Running
+[TIME 212] Process P4   : Running
+[TIME 213] Process P4   : Running
+[TIME 214] Process P4   : Running
+[TIME 215] Process P4   : Running
+[TIME 216] Process P4   : Running
+[TIME 217] Process P4   : Running
+[TIME 218] Process P4   : Running
+[TIME 219] Process P4   : Running
+[TIME 220] PREEMPTION   : P4 yielded to P5
 [TIME 220] Process P5   : Running
 [TIME 221] Process P5   : Running
 [TIME 222] Process P5   : Running
@@ -2639,40 +2639,40 @@ Starting Comparative Analysis Mode...
 [TIME 237] Process P1   : Running
 [TIME 238] Process P1   : Running
 [TIME 239] Process P1   : Running
-[TIME 240] PREEMPTION   : P1 yielded to P3
-[TIME 240] Process P3   : Running
-[TIME 241] Process P3   : Running
-[TIME 242] Process P3   : Running
-[TIME 243] Process P3   : Running
-[TIME 244] Process P3   : Running
-[TIME 245] Process P3   : Running
-[TIME 246] Process P3   : Running
-[TIME 247] Process P3   : Running
-[TIME 248] Process P3   : Running
-[TIME 249] Process P3   : Running
-[TIME 250] PREEMPTION   : P3 yielded to P4
-[TIME 250] Process P4   : Running
-[TIME 251] Process P4   : Running
-[TIME 252] Process P4   : Running
-[TIME 253] Process P4   : Running
-[TIME 254] Process P4   : Running
-[TIME 255] Process P4   : Running
-[TIME 256] Process P4   : Running
-[TIME 257] Process P4   : Running
-[TIME 258] Process P4   : Running
-[TIME 259] Process P4   : Running
-[TIME 260] PREEMPTION   : P4 yielded to P2
-[TIME 260] Process P2   : Running
-[TIME 261] Process P2   : Running
-[TIME 262] Process P2   : Running
-[TIME 263] Process P2   : Running
-[TIME 264] Process P2   : Running
-[TIME 265] Process P2   : Running
-[TIME 266] Process P2   : Running
-[TIME 267] Process P2   : Running
-[TIME 268] Process P2   : Running
-[TIME 269] Process P2   : Running
-[TIME 270] PREEMPTION   : P2 yielded to P5
+[TIME 240] PREEMPTION   : P1 yielded to P2
+[TIME 240] Process P2   : Running
+[TIME 241] Process P2   : Running
+[TIME 242] Process P2   : Running
+[TIME 243] Process P2   : Running
+[TIME 244] Process P2   : Running
+[TIME 245] Process P2   : Running
+[TIME 246] Process P2   : Running
+[TIME 247] Process P2   : Running
+[TIME 248] Process P2   : Running
+[TIME 249] Process P2   : Running
+[TIME 250] PREEMPTION   : P2 yielded to P3
+[TIME 250] Process P3   : Running
+[TIME 251] Process P3   : Running
+[TIME 252] Process P3   : Running
+[TIME 253] Process P3   : Running
+[TIME 254] Process P3   : Running
+[TIME 255] Process P3   : Running
+[TIME 256] Process P3   : Running
+[TIME 257] Process P3   : Running
+[TIME 258] Process P3   : Running
+[TIME 259] Process P3   : Running
+[TIME 260] PREEMPTION   : P3 yielded to P4
+[TIME 260] Process P4   : Running
+[TIME 261] Process P4   : Running
+[TIME 262] Process P4   : Running
+[TIME 263] Process P4   : Running
+[TIME 264] Process P4   : Running
+[TIME 265] Process P4   : Running
+[TIME 266] Process P4   : Running
+[TIME 267] Process P4   : Running
+[TIME 268] Process P4   : Running
+[TIME 269] Process P4   : Running
+[TIME 270] PREEMPTION   : P4 yielded to P5
 [TIME 270] Process P5   : Running
 [TIME 271] Process P5   : Running
 [TIME 272] Process P5   : Running
@@ -2694,40 +2694,40 @@ Starting Comparative Analysis Mode...
 [TIME 287] Process P1   : Running
 [TIME 288] Process P1   : Running
 [TIME 289] Process P1   : Running
-[TIME 290] PREEMPTION   : P1 yielded to P3
-[TIME 290] Process P3   : Running
-[TIME 291] Process P3   : Running
-[TIME 292] Process P3   : Running
-[TIME 293] Process P3   : Running
-[TIME 294] Process P3   : Running
-[TIME 295] Process P3   : Running
-[TIME 296] Process P3   : Running
-[TIME 297] Process P3   : Running
-[TIME 298] Process P3   : Running
-[TIME 299] Process P3   : Running
-[TIME 300] PREEMPTION   : P3 yielded to P4
-[TIME 300] Process P4   : Running
-[TIME 301] Process P4   : Running
-[TIME 302] Process P4   : Running
-[TIME 303] Process P4   : Running
-[TIME 304] Process P4   : Running
-[TIME 305] Process P4   : Running
-[TIME 306] Process P4   : Running
-[TIME 307] Process P4   : Running
-[TIME 308] Process P4   : Running
-[TIME 309] Process P4   : Running
-[TIME 310] PREEMPTION   : P4 yielded to P2
-[TIME 310] Process P2   : Running
-[TIME 311] Process P2   : Running
-[TIME 312] Process P2   : Running
-[TIME 313] Process P2   : Running
-[TIME 314] Process P2   : Running
-[TIME 315] Process P2   : Running
-[TIME 316] Process P2   : Running
-[TIME 317] Process P2   : Running
-[TIME 318] Process P2   : Running
-[TIME 319] Process P2   : Running
-[TIME 320] PREEMPTION   : P2 yielded to P5
+[TIME 290] PREEMPTION   : P1 yielded to P2
+[TIME 290] Process P2   : Running
+[TIME 291] Process P2   : Running
+[TIME 292] Process P2   : Running
+[TIME 293] Process P2   : Running
+[TIME 294] Process P2   : Running
+[TIME 295] Process P2   : Running
+[TIME 296] Process P2   : Running
+[TIME 297] Process P2   : Running
+[TIME 298] Process P2   : Running
+[TIME 299] Process P2   : Running
+[TIME 300] PREEMPTION   : P2 yielded to P3
+[TIME 300] Process P3   : Running
+[TIME 301] Process P3   : Running
+[TIME 302] Process P3   : Running
+[TIME 303] Process P3   : Running
+[TIME 304] Process P3   : Running
+[TIME 305] Process P3   : Running
+[TIME 306] Process P3   : Running
+[TIME 307] Process P3   : Running
+[TIME 308] Process P3   : Running
+[TIME 309] Process P3   : Running
+[TIME 310] PREEMPTION   : P3 yielded to P4
+[TIME 310] Process P4   : Running
+[TIME 311] Process P4   : Running
+[TIME 312] Process P4   : Running
+[TIME 313] Process P4   : Running
+[TIME 314] Process P4   : Running
+[TIME 315] Process P4   : Running
+[TIME 316] Process P4   : Running
+[TIME 317] Process P4   : Running
+[TIME 318] Process P4   : Running
+[TIME 319] Process P4   : Running
+[TIME 320] PREEMPTION   : P4 yielded to P5
 [TIME 320] Process P5   : Running
 [TIME 321] Process P5   : Running
 [TIME 322] Process P5   : Running
@@ -2749,40 +2749,40 @@ Starting Comparative Analysis Mode...
 [TIME 337] Process P1   : Running
 [TIME 338] Process P1   : Running
 [TIME 339] Process P1   : Running
-[TIME 340] PREEMPTION   : P1 yielded to P3
-[TIME 340] Process P3   : Running
-[TIME 341] Process P3   : Running
-[TIME 342] Process P3   : Running
-[TIME 343] Process P3   : Running
-[TIME 344] Process P3   : Running
-[TIME 345] Process P3   : Running
-[TIME 346] Process P3   : Running
-[TIME 347] Process P3   : Running
-[TIME 348] Process P3   : Running
-[TIME 349] Process P3   : Running
-[TIME 350] PREEMPTION   : P3 yielded to P4
-[TIME 350] Process P4   : Running
-[TIME 351] Process P4   : Running
-[TIME 352] Process P4   : Running
-[TIME 353] Process P4   : Running
-[TIME 354] Process P4   : Running
-[TIME 355] Process P4   : Running
-[TIME 356] Process P4   : Running
-[TIME 357] Process P4   : Running
-[TIME 358] Process P4   : Running
-[TIME 359] Process P4   : Running
-[TIME 360] PREEMPTION   : P4 yielded to P2
-[TIME 360] Process P2   : Running
-[TIME 361] Process P2   : Running
-[TIME 362] Process P2   : Running
-[TIME 363] Process P2   : Running
-[TIME 364] Process P2   : Running
-[TIME 365] Process P2   : Running
-[TIME 366] Process P2   : Running
-[TIME 367] Process P2   : Running
-[TIME 368] Process P2   : Running
-[TIME 369] Process P2   : Running
-[TIME 370] PREEMPTION   : P2 yielded to P5
+[TIME 340] PREEMPTION   : P1 yielded to P2
+[TIME 340] Process P2   : Running
+[TIME 341] Process P2   : Running
+[TIME 342] Process P2   : Running
+[TIME 343] Process P2   : Running
+[TIME 344] Process P2   : Running
+[TIME 345] Process P2   : Running
+[TIME 346] Process P2   : Running
+[TIME 347] Process P2   : Running
+[TIME 348] Process P2   : Running
+[TIME 349] Process P2   : Running
+[TIME 350] PREEMPTION   : P2 yielded to P3
+[TIME 350] Process P3   : Running
+[TIME 351] Process P3   : Running
+[TIME 352] Process P3   : Running
+[TIME 353] Process P3   : Running
+[TIME 354] Process P3   : Running
+[TIME 355] Process P3   : Running
+[TIME 356] Process P3   : Running
+[TIME 357] Process P3   : Running
+[TIME 358] Process P3   : Running
+[TIME 359] Process P3   : Running
+[TIME 360] PREEMPTION   : P3 yielded to P4
+[TIME 360] Process P4   : Running
+[TIME 361] Process P4   : Running
+[TIME 362] Process P4   : Running
+[TIME 363] Process P4   : Running
+[TIME 364] Process P4   : Running
+[TIME 365] Process P4   : Running
+[TIME 366] Process P4   : Running
+[TIME 367] Process P4   : Running
+[TIME 368] Process P4   : Running
+[TIME 369] Process P4   : Running
+[TIME 370] PREEMPTION   : P4 yielded to P5
 [TIME 370] Process P5   : Running
 [TIME 371] Process P5   : Running
 [TIME 372] Process P5   : Running
@@ -2804,40 +2804,40 @@ Starting Comparative Analysis Mode...
 [TIME 387] Process P1   : Running
 [TIME 388] Process P1   : Running
 [TIME 389] Process P1   : Running
-[TIME 390] PREEMPTION   : P1 yielded to P3
-[TIME 390] Process P3   : Running
-[TIME 391] Process P3   : Running
-[TIME 392] Process P3   : Running
-[TIME 393] Process P3   : Running
-[TIME 394] Process P3   : Running
-[TIME 395] Process P3   : Running
-[TIME 396] Process P3   : Running
-[TIME 397] Process P3   : Running
-[TIME 398] Process P3   : Running
-[TIME 399] Process P3   : Running
-[TIME 400] PREEMPTION   : P3 yielded to P4
-[TIME 400] Process P4   : Running
-[TIME 401] Process P4   : Running
-[TIME 402] Process P4   : Running
-[TIME 403] Process P4   : Running
-[TIME 404] Process P4   : Running
-[TIME 405] Process P4   : Running
-[TIME 406] Process P4   : Running
-[TIME 407] Process P4   : Running
-[TIME 408] Process P4   : Running
-[TIME 409] Process P4   : Running
-[TIME 410] Process P4   : Finished
-[TIME 410] Process P2   : Running
-[TIME 411] Process P2   : Running
-[TIME 412] Process P2   : Running
-[TIME 413] Process P2   : Running
-[TIME 414] Process P2   : Running
-[TIME 415] Process P2   : Running
-[TIME 416] Process P2   : Running
-[TIME 417] Process P2   : Running
-[TIME 418] Process P2   : Running
-[TIME 419] Process P2   : Running
-[TIME 420] PREEMPTION   : P2 yielded to P5
+[TIME 390] PREEMPTION   : P1 yielded to P2
+[TIME 390] Process P2   : Running
+[TIME 391] Process P2   : Running
+[TIME 392] Process P2   : Running
+[TIME 393] Process P2   : Running
+[TIME 394] Process P2   : Running
+[TIME 395] Process P2   : Running
+[TIME 396] Process P2   : Running
+[TIME 397] Process P2   : Running
+[TIME 398] Process P2   : Running
+[TIME 399] Process P2   : Running
+[TIME 400] PREEMPTION   : P2 yielded to P3
+[TIME 400] Process P3   : Running
+[TIME 401] Process P3   : Running
+[TIME 402] Process P3   : Running
+[TIME 403] Process P3   : Running
+[TIME 404] Process P3   : Running
+[TIME 405] Process P3   : Running
+[TIME 406] Process P3   : Running
+[TIME 407] Process P3   : Running
+[TIME 408] Process P3   : Running
+[TIME 409] Process P3   : Running
+[TIME 410] PREEMPTION   : P3 yielded to P4
+[TIME 410] Process P4   : Running
+[TIME 411] Process P4   : Running
+[TIME 412] Process P4   : Running
+[TIME 413] Process P4   : Running
+[TIME 414] Process P4   : Running
+[TIME 415] Process P4   : Running
+[TIME 416] Process P4   : Running
+[TIME 417] Process P4   : Running
+[TIME 418] Process P4   : Running
+[TIME 419] Process P4   : Running
+[TIME 420] Process P4   : Finished
 [TIME 420] Process P5   : Running
 [TIME 421] Process P5   : Running
 [TIME 422] Process P5   : Running
@@ -2859,29 +2859,29 @@ Starting Comparative Analysis Mode...
 [TIME 437] Process P1   : Running
 [TIME 438] Process P1   : Running
 [TIME 439] Process P1   : Running
-[TIME 440] PREEMPTION   : P1 yielded to P3
-[TIME 440] Process P3   : Running
-[TIME 441] Process P3   : Running
-[TIME 442] Process P3   : Running
-[TIME 443] Process P3   : Running
-[TIME 444] Process P3   : Running
-[TIME 445] Process P3   : Running
-[TIME 446] Process P3   : Running
-[TIME 447] Process P3   : Running
-[TIME 448] Process P3   : Running
-[TIME 449] Process P3   : Running
-[TIME 450] PREEMPTION   : P3 yielded to P2
-[TIME 450] Process P2   : Running
-[TIME 451] Process P2   : Running
-[TIME 452] Process P2   : Running
-[TIME 453] Process P2   : Running
-[TIME 454] Process P2   : Running
-[TIME 455] Process P2   : Running
-[TIME 456] Process P2   : Running
-[TIME 457] Process P2   : Running
-[TIME 458] Process P2   : Running
-[TIME 459] Process P2   : Running
-[TIME 460] PREEMPTION   : P2 yielded to P5
+[TIME 440] PREEMPTION   : P1 yielded to P2
+[TIME 440] Process P2   : Running
+[TIME 441] Process P2   : Running
+[TIME 442] Process P2   : Running
+[TIME 443] Process P2   : Running
+[TIME 444] Process P2   : Running
+[TIME 445] Process P2   : Running
+[TIME 446] Process P2   : Running
+[TIME 447] Process P2   : Running
+[TIME 448] Process P2   : Running
+[TIME 449] Process P2   : Running
+[TIME 450] PREEMPTION   : P2 yielded to P3
+[TIME 450] Process P3   : Running
+[TIME 451] Process P3   : Running
+[TIME 452] Process P3   : Running
+[TIME 453] Process P3   : Running
+[TIME 454] Process P3   : Running
+[TIME 455] Process P3   : Running
+[TIME 456] Process P3   : Running
+[TIME 457] Process P3   : Running
+[TIME 458] Process P3   : Running
+[TIME 459] Process P3   : Running
+[TIME 460] PREEMPTION   : P3 yielded to P5
 [TIME 460] Process P5   : Running
 [TIME 461] Process P5   : Running
 [TIME 462] Process P5   : Running
@@ -2903,29 +2903,29 @@ Starting Comparative Analysis Mode...
 [TIME 477] Process P1   : Running
 [TIME 478] Process P1   : Running
 [TIME 479] Process P1   : Running
-[TIME 480] PREEMPTION   : P1 yielded to P3
-[TIME 480] Process P3   : Running
-[TIME 481] Process P3   : Running
-[TIME 482] Process P3   : Running
-[TIME 483] Process P3   : Running
-[TIME 484] Process P3   : Running
-[TIME 485] Process P3   : Running
-[TIME 486] Process P3   : Running
-[TIME 487] Process P3   : Running
-[TIME 488] Process P3   : Running
-[TIME 489] Process P3   : Running
-[TIME 490] PREEMPTION   : P3 yielded to P2
-[TIME 490] Process P2   : Running
-[TIME 491] Process P2   : Running
-[TIME 492] Process P2   : Running
-[TIME 493] Process P2   : Running
-[TIME 494] Process P2   : Running
-[TIME 495] Process P2   : Running
-[TIME 496] Process P2   : Running
-[TIME 497] Process P2   : Running
-[TIME 498] Process P2   : Running
-[TIME 499] Process P2   : Running
-[TIME 500] PREEMPTION   : P2 yielded to P5
+[TIME 480] PREEMPTION   : P1 yielded to P2
+[TIME 480] Process P2   : Running
+[TIME 481] Process P2   : Running
+[TIME 482] Process P2   : Running
+[TIME 483] Process P2   : Running
+[TIME 484] Process P2   : Running
+[TIME 485] Process P2   : Running
+[TIME 486] Process P2   : Running
+[TIME 487] Process P2   : Running
+[TIME 488] Process P2   : Running
+[TIME 489] Process P2   : Running
+[TIME 490] PREEMPTION   : P2 yielded to P3
+[TIME 490] Process P3   : Running
+[TIME 491] Process P3   : Running
+[TIME 492] Process P3   : Running
+[TIME 493] Process P3   : Running
+[TIME 494] Process P3   : Running
+[TIME 495] Process P3   : Running
+[TIME 496] Process P3   : Running
+[TIME 497] Process P3   : Running
+[TIME 498] Process P3   : Running
+[TIME 499] Process P3   : Running
+[TIME 500] PREEMPTION   : P3 yielded to P5
 [TIME 500] Process P5   : Running
 [TIME 501] Process P5   : Running
 [TIME 502] Process P5   : Running
@@ -2947,29 +2947,29 @@ Starting Comparative Analysis Mode...
 [TIME 517] Process P1   : Running
 [TIME 518] Process P1   : Running
 [TIME 519] Process P1   : Running
-[TIME 520] PREEMPTION   : P1 yielded to P3
-[TIME 520] Process P3   : Running
-[TIME 521] Process P3   : Running
-[TIME 522] Process P3   : Running
-[TIME 523] Process P3   : Running
-[TIME 524] Process P3   : Running
-[TIME 525] Process P3   : Running
-[TIME 526] Process P3   : Running
-[TIME 527] Process P3   : Running
-[TIME 528] Process P3   : Running
-[TIME 529] Process P3   : Running
-[TIME 530] PREEMPTION   : P3 yielded to P2
-[TIME 530] Process P2   : Running
-[TIME 531] Process P2   : Running
-[TIME 532] Process P2   : Running
-[TIME 533] Process P2   : Running
-[TIME 534] Process P2   : Running
-[TIME 535] Process P2   : Running
-[TIME 536] Process P2   : Running
-[TIME 537] Process P2   : Running
-[TIME 538] Process P2   : Running
-[TIME 539] Process P2   : Running
-[TIME 540] PREEMPTION   : P2 yielded to P5
+[TIME 520] PREEMPTION   : P1 yielded to P2
+[TIME 520] Process P2   : Running
+[TIME 521] Process P2   : Running
+[TIME 522] Process P2   : Running
+[TIME 523] Process P2   : Running
+[TIME 524] Process P2   : Running
+[TIME 525] Process P2   : Running
+[TIME 526] Process P2   : Running
+[TIME 527] Process P2   : Running
+[TIME 528] Process P2   : Running
+[TIME 529] Process P2   : Running
+[TIME 530] PREEMPTION   : P2 yielded to P3
+[TIME 530] Process P3   : Running
+[TIME 531] Process P3   : Running
+[TIME 532] Process P3   : Running
+[TIME 533] Process P3   : Running
+[TIME 534] Process P3   : Running
+[TIME 535] Process P3   : Running
+[TIME 536] Process P3   : Running
+[TIME 537] Process P3   : Running
+[TIME 538] Process P3   : Running
+[TIME 539] Process P3   : Running
+[TIME 540] PREEMPTION   : P3 yielded to P5
 [TIME 540] Process P5   : Running
 [TIME 541] Process P5   : Running
 [TIME 542] Process P5   : Running
@@ -2991,29 +2991,29 @@ Starting Comparative Analysis Mode...
 [TIME 557] Process P1   : Running
 [TIME 558] Process P1   : Running
 [TIME 559] Process P1   : Running
-[TIME 560] PREEMPTION   : P1 yielded to P3
-[TIME 560] Process P3   : Running
-[TIME 561] Process P3   : Running
-[TIME 562] Process P3   : Running
-[TIME 563] Process P3   : Running
-[TIME 564] Process P3   : Running
-[TIME 565] Process P3   : Running
-[TIME 566] Process P3   : Running
-[TIME 567] Process P3   : Running
-[TIME 568] Process P3   : Running
-[TIME 569] Process P3   : Running
-[TIME 570] PREEMPTION   : P3 yielded to P2
-[TIME 570] Process P2   : Running
-[TIME 571] Process P2   : Running
-[TIME 572] Process P2   : Running
-[TIME 573] Process P2   : Running
-[TIME 574] Process P2   : Running
-[TIME 575] Process P2   : Running
-[TIME 576] Process P2   : Running
-[TIME 577] Process P2   : Running
-[TIME 578] Process P2   : Running
-[TIME 579] Process P2   : Running
-[TIME 580] PREEMPTION   : P2 yielded to P5
+[TIME 560] PREEMPTION   : P1 yielded to P2
+[TIME 560] Process P2   : Running
+[TIME 561] Process P2   : Running
+[TIME 562] Process P2   : Running
+[TIME 563] Process P2   : Running
+[TIME 564] Process P2   : Running
+[TIME 565] Process P2   : Running
+[TIME 566] Process P2   : Running
+[TIME 567] Process P2   : Running
+[TIME 568] Process P2   : Running
+[TIME 569] Process P2   : Running
+[TIME 570] PREEMPTION   : P2 yielded to P3
+[TIME 570] Process P3   : Running
+[TIME 571] Process P3   : Running
+[TIME 572] Process P3   : Running
+[TIME 573] Process P3   : Running
+[TIME 574] Process P3   : Running
+[TIME 575] Process P3   : Running
+[TIME 576] Process P3   : Running
+[TIME 577] Process P3   : Running
+[TIME 578] Process P3   : Running
+[TIME 579] Process P3   : Running
+[TIME 580] PREEMPTION   : P3 yielded to P5
 [TIME 580] Process P5   : Running
 [TIME 581] Process P5   : Running
 [TIME 582] Process P5   : Running
@@ -3035,29 +3035,29 @@ Starting Comparative Analysis Mode...
 [TIME 597] Process P1   : Running
 [TIME 598] Process P1   : Running
 [TIME 599] Process P1   : Running
-[TIME 600] PREEMPTION   : P1 yielded to P3
-[TIME 600] Process P3   : Running
-[TIME 601] Process P3   : Running
-[TIME 602] Process P3   : Running
-[TIME 603] Process P3   : Running
-[TIME 604] Process P3   : Running
-[TIME 605] Process P3   : Running
-[TIME 606] Process P3   : Running
-[TIME 607] Process P3   : Running
-[TIME 608] Process P3   : Running
-[TIME 609] Process P3   : Running
-[TIME 610] PREEMPTION   : P3 yielded to P2
-[TIME 610] Process P2   : Running
-[TIME 611] Process P2   : Running
-[TIME 612] Process P2   : Running
-[TIME 613] Process P2   : Running
-[TIME 614] Process P2   : Running
-[TIME 615] Process P2   : Running
-[TIME 616] Process P2   : Running
-[TIME 617] Process P2   : Running
-[TIME 618] Process P2   : Running
-[TIME 619] Process P2   : Running
-[TIME 620] PREEMPTION   : P2 yielded to P5
+[TIME 600] PREEMPTION   : P1 yielded to P2
+[TIME 600] Process P2   : Running
+[TIME 601] Process P2   : Running
+[TIME 602] Process P2   : Running
+[TIME 603] Process P2   : Running
+[TIME 604] Process P2   : Running
+[TIME 605] Process P2   : Running
+[TIME 606] Process P2   : Running
+[TIME 607] Process P2   : Running
+[TIME 608] Process P2   : Running
+[TIME 609] Process P2   : Running
+[TIME 610] PREEMPTION   : P2 yielded to P3
+[TIME 610] Process P3   : Running
+[TIME 611] Process P3   : Running
+[TIME 612] Process P3   : Running
+[TIME 613] Process P3   : Running
+[TIME 614] Process P3   : Running
+[TIME 615] Process P3   : Running
+[TIME 616] Process P3   : Running
+[TIME 617] Process P3   : Running
+[TIME 618] Process P3   : Running
+[TIME 619] Process P3   : Running
+[TIME 620] PREEMPTION   : P3 yielded to P5
 [TIME 620] Process P5   : Running
 [TIME 621] Process P5   : Running
 [TIME 622] Process P5   : Running
@@ -3079,29 +3079,29 @@ Starting Comparative Analysis Mode...
 [TIME 637] Process P1   : Running
 [TIME 638] Process P1   : Running
 [TIME 639] Process P1   : Running
-[TIME 640] PREEMPTION   : P1 yielded to P3
-[TIME 640] Process P3   : Running
-[TIME 641] Process P3   : Running
-[TIME 642] Process P3   : Running
-[TIME 643] Process P3   : Running
-[TIME 644] Process P3   : Running
-[TIME 645] Process P3   : Running
-[TIME 646] Process P3   : Running
-[TIME 647] Process P3   : Running
-[TIME 648] Process P3   : Running
-[TIME 649] Process P3   : Running
-[TIME 650] PREEMPTION   : P3 yielded to P2
-[TIME 650] Process P2   : Running
-[TIME 651] Process P2   : Running
-[TIME 652] Process P2   : Running
-[TIME 653] Process P2   : Running
-[TIME 654] Process P2   : Running
-[TIME 655] Process P2   : Running
-[TIME 656] Process P2   : Running
-[TIME 657] Process P2   : Running
-[TIME 658] Process P2   : Running
-[TIME 659] Process P2   : Running
-[TIME 660] PREEMPTION   : P2 yielded to P1
+[TIME 640] PREEMPTION   : P1 yielded to P2
+[TIME 640] Process P2   : Running
+[TIME 641] Process P2   : Running
+[TIME 642] Process P2   : Running
+[TIME 643] Process P2   : Running
+[TIME 644] Process P2   : Running
+[TIME 645] Process P2   : Running
+[TIME 646] Process P2   : Running
+[TIME 647] Process P2   : Running
+[TIME 648] Process P2   : Running
+[TIME 649] Process P2   : Running
+[TIME 650] PREEMPTION   : P2 yielded to P3
+[TIME 650] Process P3   : Running
+[TIME 651] Process P3   : Running
+[TIME 652] Process P3   : Running
+[TIME 653] Process P3   : Running
+[TIME 654] Process P3   : Running
+[TIME 655] Process P3   : Running
+[TIME 656] Process P3   : Running
+[TIME 657] Process P3   : Running
+[TIME 658] Process P3   : Running
+[TIME 659] Process P3   : Running
+[TIME 660] PREEMPTION   : P3 yielded to P1
 [TIME 660] Process P1   : Running
 [TIME 661] Process P1   : Running
 [TIME 662] Process P1   : Running
@@ -3112,29 +3112,29 @@ Starting Comparative Analysis Mode...
 [TIME 667] Process P1   : Running
 [TIME 668] Process P1   : Running
 [TIME 669] Process P1   : Running
-[TIME 670] PREEMPTION   : P1 yielded to P3
-[TIME 670] Process P3   : Running
-[TIME 671] Process P3   : Running
-[TIME 672] Process P3   : Running
-[TIME 673] Process P3   : Running
-[TIME 674] Process P3   : Running
-[TIME 675] Process P3   : Running
-[TIME 676] Process P3   : Running
-[TIME 677] Process P3   : Running
-[TIME 678] Process P3   : Running
-[TIME 679] Process P3   : Running
-[TIME 680] Process P3   : Finished
-[TIME 680] Process P2   : Running
-[TIME 681] Process P2   : Running
-[TIME 682] Process P2   : Running
-[TIME 683] Process P2   : Running
-[TIME 684] Process P2   : Running
-[TIME 685] Process P2   : Running
-[TIME 686] Process P2   : Running
-[TIME 687] Process P2   : Running
-[TIME 688] Process P2   : Running
-[TIME 689] Process P2   : Running
-[TIME 690] PREEMPTION   : P2 yielded to P1
+[TIME 670] PREEMPTION   : P1 yielded to P2
+[TIME 670] Process P2   : Running
+[TIME 671] Process P2   : Running
+[TIME 672] Process P2   : Running
+[TIME 673] Process P2   : Running
+[TIME 674] Process P2   : Running
+[TIME 675] Process P2   : Running
+[TIME 676] Process P2   : Running
+[TIME 677] Process P2   : Running
+[TIME 678] Process P2   : Running
+[TIME 679] Process P2   : Running
+[TIME 680] PREEMPTION   : P2 yielded to P3
+[TIME 680] Process P3   : Running
+[TIME 681] Process P3   : Running
+[TIME 682] Process P3   : Running
+[TIME 683] Process P3   : Running
+[TIME 684] Process P3   : Running
+[TIME 685] Process P3   : Running
+[TIME 686] Process P3   : Running
+[TIME 687] Process P3   : Running
+[TIME 688] Process P3   : Running
+[TIME 689] Process P3   : Running
+[TIME 690] Process P3   : Finished
 [TIME 690] Process P1   : Running
 [TIME 691] Process P1   : Running
 [TIME 692] Process P1   : Running
@@ -4053,5 +4053,5 @@ Algorithm       Avg TT       Avg WT       Avg RT
 FCFS            515.00       359.00       359.00      
 SJF             461.00       305.00       305.00      
 STCF            393.00       237.00       15.00       
-RR              629.00       473.00       19.00       
+RR              633.00       477.00       23.00       
 MLFQ            615.00       459.00       119.00      

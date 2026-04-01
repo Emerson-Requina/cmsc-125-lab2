@@ -89,21 +89,18 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // 1. Load Process Workload
     base_processes = load_processes(input_file, &process_count);
     if (!base_processes || process_count == 0) {
         fprintf(stderr, "\033[0;31m[ERROR]\033[0m Failed to load processes or file is empty.\n");
         return 1;
     }
 
-    // 2. Comparison Mode (Short-circuit for analysis)
     if (compare_mode) {
         printf("Starting Comparative Analysis Mode...\n");
         run_comparative_analysis(base_processes, process_count, mlfq_file);
         goto cleanup; 
     }
 
-    // 3. Single Simulation Setup
     work_processes = clone_processes(base_processes, process_count);
     SchedulerConfig config = {0};
     AlgorithmPicker picker = NULL;
@@ -148,22 +145,16 @@ int main(int argc, char *argv[]) {
         goto cleanup;
     }
 
-    // 4. Execution Guard (Prevents Segfaults if picker is NULL)
+
     if (picker != NULL) {
         printf("Starting %s Simulation...\n", algo_name);
-        run_simulation(work_processes, process_count, picker, is_preemptive, &config);
         
-        // 5. Reporting
-        calculate_metrics(work_processes, process_count);
+        run_simulation(work_processes, process_count, picker, is_preemptive, &config);
+        calculate_metrics(work_processes, process_count, mlfq_cfg);
         print_gantt_chart(1);
-
-        if (strcmp(algo_name, "MLFQ") == 0) {
-            print_mlfq_behavior_report(work_processes, process_count, mlfq_cfg);
-        }
     }
 
 cleanup:
-    // 6. Explicit Resource Release
     if (base_processes) free_processes(base_processes);
     if (work_processes) free_processes(work_processes);
     if (mlfq_cfg) free_mlfq_config(mlfq_cfg);

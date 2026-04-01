@@ -16,7 +16,7 @@ typedef struct {
 } SchedulingMetrics;
 
 // Standard metrics
-void calculate_metrics(Process *processes, int count);
+void calculate_metrics(Process *processes, int count, MLFQConfig *config);
 void display_comparison_table(SchedulingMetrics *results, int num_algos);
 
 // MLFQ Analysis
