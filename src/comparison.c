@@ -38,7 +38,10 @@ void run_comparative_analysis(Process *original_procs, int count, const char *ml
 
     // 2. Load MLFQ config once for the entire comparative session
     MLFQConfig *mlfq_cfg = load_mlfq_config(mlfq_conf);
-    
+    if (!mlfq_cfg) {
+    printf("ERROR: MLFQ Config failed to load in comparison!\n");
+    return;
+}
     // Prepare the configuration wrapper
     SchedulerConfig config;
     config.quantum = 10; 
@@ -47,8 +50,9 @@ void run_comparative_analysis(Process *original_procs, int count, const char *ml
     for (int i = 0; i < num_algos; i++) {
         // 3. Reset state: Every algorithm starts with a "clean" copy of the data
         reset_procs(temp_procs, original_procs, count);
+        
         strncpy(results[i].algo_name, algos[i], sizeof(results[i].algo_name) - 1);
-
+reset_scheduler_state();
         AlgorithmPicker picker = NULL;
         int is_preemptive = 0;
 

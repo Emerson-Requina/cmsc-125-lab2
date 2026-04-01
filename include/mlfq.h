@@ -20,5 +20,5 @@ typedef struct MLFQConfig {
 MLFQConfig* load_mlfq_config(const char *filename);
 int validate_mlfq_config(MLFQConfig *cfg);
 void free_mlfq_config(MLFQConfig *cfg);
-
+void reset_mlfq_internal();
 #endif

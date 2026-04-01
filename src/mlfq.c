@@ -85,3 +85,6 @@ Process* pick_mlfq(Process *procs, int count, int time, Process *current, Schedu
     return current;
 }
 
+void reset_mlfq_internal() {
+    time_slice_counter = 0;
+}

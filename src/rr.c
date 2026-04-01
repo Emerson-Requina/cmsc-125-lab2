@@ -86,3 +86,16 @@ Process* pick_rr(Process *procs, int count, int time, Process *current, Schedule
 
     return current;
 }
+
+void reset_scheduler_state() {
+    head = 0;
+    tail = 0;
+    buffer_count = 0;
+    finished_count = 0;
+    time_slice_counter = 0;
+    for (int i = 0; i < MAX_PROCESSES; i++) {
+        ready_queue[i] = NULL;
+        arrival_buffer[i] = NULL;
+        finished_slice_buffer[i] = NULL;
+    }
+}
